@@ -133,12 +133,77 @@ main {
 }
 
 .section-recipe {
-
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0 104px 0 104px;
+    h3 {
+        font-family: $font-family-title;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 27px;
+    }
+    h4 {
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.09em;
+        color: #7A7A7A;
+    }
     &__card {
-
+        width: 380px;
+        height: 731px;
+        min-height: 731px;
+        background-color: white;
+        box-shadow: 0px 4px 34px 30px rgba(0, 0, 0, 0.04);
+        border-radius: 21px;
+        margin-bottom: 68px;
         img {
             width: 380px;
             height: 253px;
+            object-fit: cover;
+            border-radius: 21px 21px 0 0;
+        }
+    }
+    &__cardContent {
+        padding: 0 25px 0 25px;
+    }
+    &__cardRecette {
+        max-height: 125px;
+        text-overflow: "";
+        overflow: hidden;
+        p {
+            max-height: 76px;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+        }
+    }
+    &__cardListIngredients {
+        width: 330px;
+        height: 190px;
+    }
+    &__cardIngredients {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-content: space-between;
+        height: 232px;
+    }
+    &__cardIngredient {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        span:first-child {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 19px;
+        }
+        span:last-child {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            color: #7A7A7A;
         }
     }
 }

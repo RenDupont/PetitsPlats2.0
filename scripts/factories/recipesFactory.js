@@ -8,25 +8,28 @@ class RecipesFactory {
   createRecipeCard () {
     const ingredientsList = this._data.ingredients.map(ingredient => {
       const quantity = ingredient.quantity ? `${ingredient.quantity} ${ingredient.unit || ''}` : '';
-      return `<li>${ingredient.ingredient}${quantity}</li>`;
+      return `<div class="section-recipe__cardIngredient">
+                <span>${ingredient.ingredient}</span>
+                <span>${quantity}</span>
+              </div>`;
     }).join('');
 
     const article = document.createElement('article');
     article.classList.add('section-recipe__card');
 
     const recipeCard = `
-          <img class"" src="./assets/Photos P7 JS Les petits plats/${this._data.image}" alt="${this._data.name}">
-          <div>
+          <img src="./assets/Photos P7 JS Les petits plats/${this._data.image}" alt="${this._data.name}">
+          <div class="section-recipe__cardContent">
             <h3>${this._data.name}</h3>
-            <div>
+            <div class="section-recipe__cardRecette">
               <h4>RECETTE</h4>
               <p>${this._data.description}</p>
             </div>
-            <div>
+            <div class="section-recipe__cardListIngredients">
               <h4>Ingrédients</h4>
-              <ul>
+              <div class="section-recipe__cardIngredients">
                 ${ingredientsList}
-              </ul>
+              </div>
             </div>
           </div>
       `;
