@@ -175,7 +175,7 @@ main {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   justify-content: space-between;
-  height: 232px;
+  gap: 30px;
 }
 .section-recipe__cardIngredient {
   display: flex;

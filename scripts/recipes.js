@@ -1779,6 +1779,7 @@ const recipes = [
 
 document.addEventListener('DOMContentLoaded', () => {
   const sectionRecipe = document.querySelector('.section-recipe');
+  const searchBnt = document.querySelector('.header__search-bar button');
 
   recipes.forEach(recipe => {
     // eslint-disable-next-line no-undef
@@ -1786,4 +1787,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const card = newRecipe.createRecipeCard();
     sectionRecipe.appendChild(card);
   });
+
+  searchBnt.addEventListener('click', function (event) {
+    event.preventDefault();
+    search();
+  });
+
+  function clearAndAppendListCard (newList) {
+    const oldList = document.querySelector('.section-recipe');
+    while (oldList.firstChild) {
+      oldList.removeChild(oldList.firstChild);
+    }
+
+    newList.forEach(recipe => {
+      // eslint-disable-next-line no-undef
+      const newRecipe = new RecipesFactory(recipe);
+      const card = newRecipe.createRecipeCard();
+      sectionRecipe.appendChild(card);
+    });
+  }
+
+  function search () {
+    const query = document.querySelector('.header__search-bar input').value.toLowerCase();
+
+    if (query.length >= 3) {
+      const results = recipes.filter(function (recipe) {
+        return (
+          recipe.name.toLowerCase().includes(query) ||
+          recipe.ingredients.some(function (list) {
+            return list.ingredient.toLowerCase().includes(query);
+          }) ||
+          recipe.ustensils.some(function (ustensils) {
+            return ustensils.toLowerCase().includes(query);
+          })
+        );
+      });
+      console.log(results);
+      clearAndAppendListCard(results);
+    } else {
+      console.log('no');
+    }
+  }
 });
