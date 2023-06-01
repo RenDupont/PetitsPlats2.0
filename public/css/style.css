@@ -66,6 +66,7 @@ main {
   font-weight: 400;
   font-size: 16px;
   line-height: 22px;
+  color: #7A7A7A;
 }
 .header__search-bar button {
   position: absolute;
@@ -111,11 +112,67 @@ main {
   top: 20px;
   right: 25px;
 }
+.mainHeader__button:hover + .mainHeader__dropdown-content, .mainHeader__dropdown-content:hover {
+  display: flex;
+  flex-direction: column;
+}
+.mainHeader__dropdown {
+  position: relative;
+}
+.mainHeader__dropdown-content {
+  display: none;
+  width: 195px;
+  height: 315px;
+  position: absolute;
+  background-color: white;
+  top: 47px;
+  border-radius: 0 0 11px 11px;
+}
+.mainHeader__search-bar {
+  position: relative;
+  margin: 5px 16px;
+}
+.mainHeader__search-bar input {
+  box-sizing: border-box;
+  width: 163px;
+  height: 36px;
+  border: 1px solid #C6C6C6;
+  border-radius: 2px;
+  color: #7A7A7A;
+  padding: 12px 10px;
+}
+.mainHeader__search-bar i {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #7A7A7A;
+}
 .mainHeader span {
   font-family: "Anton";
   font-weight: 400;
   font-size: 21px;
   line-height: 32px;
+}
+.mainHeader__listTag {
+  display: flex;
+  flex-direction: column;
+  margin-top: 13px;
+  text-overflow: clip;
+  overflow: scroll;
+  border-radius: 0 0 11px 11px;
+}
+.mainHeader__listTag button {
+  border: none;
+  background-color: white;
+  text-align: left;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 35px;
+  height: 35px;
+  padding-left: 16px;
+}
+.mainHeader__listTag button:hover {
+  background-color: #FFD16B;
 }
 
 .section-recipe {

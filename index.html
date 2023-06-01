@@ -24,8 +24,26 @@
     <main>
       <div class="mainHeader">
         <div class="mainHeader__buttonList">
-          <button class="mainHeader__button">ingrédients<i class="fa-solid fa-chevron-down"></i></button>
-          <button class="mainHeader__button">Appareils<i class="fa-solid fa-chevron-down"></i></button>
+          <div class="mainHeader__dropdown">
+            <button class="mainHeader__button">ingrédients<i class="fa-solid fa-chevron-down"></i></button>
+            <div class="mainHeader__dropdown-content" role="listbox" aria-labelledby="sortLabel">
+              <form class="mainHeader__search-bar" action="">
+                <input type="text" placeholder="" name="search">
+                <i class="fa fa-search"></i>
+              </form>
+              <div id="ingrédients-ListTag" class="mainHeader__listTag"></div>
+            </div>
+          </div>
+          <div class="mainHeader__dropdown">
+            <button class="mainHeader__button">Appareils<i class="fa-solid fa-chevron-down"></i></button>
+            <div class="mainHeader__dropdown-content" role="listbox" aria-labelledby="sortLabel">
+              <form class="mainHeader__search-bar" action="">
+                <input type="text" placeholder="" name="search">
+                <i class="fa fa-search"></i>
+              </form>
+              <div id="appliance-ListTag" class="mainHeader__listTag"></div>
+            </div>
+          </div>
           <button class="mainHeader__button">Ustensiles<i class="fa-solid fa-chevron-down"></i></button>
         </div>
         <span>1500 recettes</span>

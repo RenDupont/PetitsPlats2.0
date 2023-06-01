@@ -1,5 +1,6 @@
 
 $font-family-title : 'Anton'; 
+$searchBar-color : #7A7A7A;
 
 
 body {
@@ -72,6 +73,7 @@ main {
             font-weight: 400;
             font-size: 16px;
             line-height: 22px;
+            color: $searchBar-color;
         }
         
         button {
@@ -124,11 +126,75 @@ main {
         }
     }
 
+    &__button:hover + &__dropdown-content,
+    &__dropdown-content:hover {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__dropdown {
+        position: relative;
+    }
+
+    &__dropdown-content {
+        display: none;
+        width: 195px;
+        height: 315px;
+        position: absolute;
+        background-color: white;
+        top: 47px;
+        border-radius: 0 0 11px 11px;
+    }
+
+    &__search-bar {
+        position: relative;
+        margin: 5px 16px;
+        input {
+            box-sizing: border-box;
+            width: 163px;
+            height: 36px;
+            border: 1px solid #C6C6C6;
+            border-radius: 2px;
+            color: $searchBar-color;
+            padding: 12px 10px;
+        }
+        i {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            color: $searchBar-color;
+        }
+    }
+
     span {
         font-family: $font-family-title;
         font-weight: 400;
         font-size: 21px;
         line-height: 32px;
+    }
+
+    &__listTag {
+        display: flex;
+        flex-direction: column;
+        margin-top: 13px;
+        text-overflow: clip;
+        overflow: scroll;
+        border-radius: 0 0 11px 11px;
+        
+        button {
+            border: none;
+            background-color: white;
+            text-align: left;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 35px;
+            height: 35px;
+            padding-left: 16px;
+        }
+
+        button:hover {
+            background-color: #FFD16B;
+        }
     }
 }
 
