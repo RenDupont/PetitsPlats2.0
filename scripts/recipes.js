@@ -1815,58 +1815,154 @@ document.addEventListener('DOMContentLoaded', () => {
     sectionRecipe.appendChild(card);
   });
 
+  // event from main search bar
   searchBnt.addEventListener('click', function (event) {
     event.preventDefault();
     const query = document.querySelector('.header__search-bar input').value.toLowerCase();
     if (query.length >= 3) {
-      search(query);
+      search(query, 'mainSearchBar');
     }
   });
 
+  // event from filter botton
   const tagBtn = document.querySelectorAll('.mainHeader__tag');
-  console.log(tagBtn);
-
   tagBtn.forEach(tag => {
     tag.addEventListener('click', function () {
-      console.log(tag.textContent);
       search(tag.textContent.toLowerCase());
     });
   });
 
   /**
+   * compare the recipe list with the new filtered recipe list
+   * to obtain a list with the elements who diffair
+   * @param {Array} list1
+   * @param {Array} list2
+   * @returns Array
+   */
+  /* function compareLists (list1, list2) {
+    const diff = [];
+
+    list1.forEach(function (element) {
+      if (!list2.includes(element)) {
+        diff.push(element);
+      }
+    });
+
+    list2.forEach(function (element) {
+      if (!list1.includes(element) && !diff.includes(element)) {
+        diff.push(element);
+      }
+    });
+
+    return diff;
+  } */
+
+  /**
    * delete and add new flitered list of card
    * @param {Array} newList
    */
+  /* function clearAndAppendListCard (newList) {
+    const oldHtmlList = document.querySelector('.section-recipe');
+    while (oldHtmlList.firstChild) {
+      oldHtmlList.removeChild(oldHtmlList.firstChild);
+    }
+
+    const newRecipeList = compareLists(recipes, newList);
+
+    newRecipeList.forEach(recipe => {
+      // eslint-disable-next-line no-undef
+      const newRecipeList = new RecipesFactory(recipe);
+      const card = newRecipeList.createRecipeCard();
+      sectionRecipe.appendChild(card);
+    });
+  } */
+
+  /**
+   * search through recipe name, ingredients and ustensils
+   */
+  /* function search (query, from) {
+    // main search
+    if (from === 'mainSearchBar') {
+      const mainSearchResults = recipes.filter(function (recipe) {
+        return (
+          recipe.name.toLowerCase().includes(query) ||
+            recipe.ingredients.some(function (list) {
+              return list.ingredient.toLowerCase().includes(query);
+            }) ||
+            recipe.description.toLowerCase().includes(query)
+        );
+      });
+      clearAndAppendListCard(mainSearchResults);
+    } else { // filter button search
+      const filterResults = recipes.filter(function (recipe) {
+        return (
+          recipe.appliance.toLowerCase().includes(query) ||
+            recipe.ingredients.some(function (list) {
+              return list.ingredient.toLowerCase().includes(query);
+            }) ||
+            recipe.ustensils.some(function (list) {
+              return list.toLowerCase().includes(query);
+            })
+        );
+      });
+      clearAndAppendListCard(filterResults);
+    }
+  } */
+
+  let filteredList = recipes;
+
+  /**
+ * delete and add new filtered list of card
+ * @param {Array} newList
+ */
   function clearAndAppendListCard (newList) {
-    const oldList = document.querySelector('.section-recipe');
-    while (oldList.firstChild) {
-      oldList.removeChild(oldList.firstChild);
+    const oldHtmlList = document.querySelector('.section-recipe');
+    while (oldHtmlList.firstChild) {
+      oldHtmlList.removeChild(oldHtmlList.firstChild);
     }
 
     newList.forEach(recipe => {
-      // eslint-disable-next-line no-undef
-      const newRecipe = new RecipesFactory(recipe);
-      const card = newRecipe.createRecipeCard();
+    // eslint-disable-next-line no-undef
+      const newRecipeList = new RecipesFactory(recipe);
+      const card = newRecipeList.createRecipeCard();
       sectionRecipe.appendChild(card);
     });
   }
 
   /**
-   * search through recipe name, ingredients and ustensils
-   */
-  function search (query) {
-    const results = recipes.filter(function (recipe) {
-      return (
-        recipe.name.toLowerCase().includes(query) ||
-          recipe.ingredients.some(function (list) {
-            return list.ingredient.toLowerCase().includes(query);
-          }) ||
-          recipe.ustensils.some(function (ustensils) {
-            return ustensils.toLowerCase().includes(query);
-          })
-      );
-    });
-    console.log(results);
-    clearAndAppendListCard(results);
+ * search through recipe name, ingredients, and ustensils
+ */
+  function search (query, from) {
+  // main search
+    if (from === 'mainSearchBar') {
+      filteredList = recipes.filter(function (recipe) {
+        return (
+          recipe.name.toLowerCase().includes(query) ||
+        recipe.ingredients.some(function (list) {
+          return list.ingredient.toLowerCase().includes(query);
+        }) ||
+        recipe.description.toLowerCase().includes(query)
+        );
+      });
+    } else { // filter button search
+      filteredList = filteredList.filter(function (recipe) {
+        return (
+          recipe.appliance.toLowerCase().includes(query) ||
+        recipe.ingredients.some(function (list) {
+          return list.ingredient.toLowerCase().includes(query);
+        }) ||
+        recipe.ustensils.some(function (list) {
+          return list.toLowerCase().includes(query);
+        })
+        );
+      });
+    }
+
+    clearAndAppendListCard(filteredList);
   }
 });
+
+/**
+ * TODO
+ *
+ */
