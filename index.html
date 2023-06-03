@@ -44,10 +44,20 @@
               <div id="appliance-ListTag" class="mainHeader__listTag"></div>
             </div>
           </div>
-          <button class="mainHeader__button">Ustensiles<i class="fa-solid fa-chevron-down"></i></button>
+          <div class="mainHeader__dropdown">
+            <button class="mainHeader__button">Ustensiles<i class="fa-solid fa-chevron-down"></i></button>
+            <div class="mainHeader__dropdown-content" role="listbox" aria-labelledby="sortLabel">
+              <form class="mainHeader__search-bar" action="">
+                <input type="text" placeholder="" name="search">
+                <i class="fa fa-search"></i>
+              </form>
+              <div id="ustensiles-ListTag" class="mainHeader__listTag"></div>
+            </div>
+          </div>
         </div>
         <span>1500 recettes</span>
       </div>
+      <div class="activetedTag"></div>
       <section class="section-recipe"></section>
     </main>
   </body>

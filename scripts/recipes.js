@@ -1799,10 +1799,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const listUniqueAppliance = [...new Set(listAppliance)];
 
   // add appliance list tag to html
-  listUniqueAppliance.forEach(ingredient => {
+  listUniqueAppliance.forEach(appliance => {
     const listTag = document.getElementById('appliance-ListTag');
     const buttonAppliance = document.createElement('button');
-    buttonAppliance.innerHTML = ingredient;
+    buttonAppliance.innerHTML = appliance;
+    buttonAppliance.classList.add('mainHeader__tag');
+    listTag.appendChild(buttonAppliance);
+  });
+
+  // get list of all ustensiles
+  const listUstensiles = recipes.map((recipe) => recipe.ustensils).flat();
+  const listUniqueUstensiles = [...new Set(listUstensiles)];
+  console.log(listUniqueUstensiles);
+
+  // add ustensils list tag to html
+  listUniqueUstensiles.forEach(ustensil => {
+    const listTag = document.getElementById('ustensiles-ListTag');
+    const buttonAppliance = document.createElement('button');
+    buttonAppliance.innerHTML = ustensil;
     buttonAppliance.classList.add('mainHeader__tag');
     listTag.appendChild(buttonAppliance);
   });
@@ -1826,88 +1840,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // event from filter botton
   const tagBtn = document.querySelectorAll('.mainHeader__tag');
+  const activetedTag = document.querySelector('.activetedTag');
+  console.log(activetedTag);
   tagBtn.forEach(tag => {
     tag.addEventListener('click', function () {
+      const div = document.createElement('div');
+      div.classList.add('activetedTag__tag');
+      const createTag = `
+                <span>${tag.textContent}</span>
+                <i class="fa fa-search"></i>
+              `;
+      div.innerHTML = createTag;
       search(tag.textContent.toLowerCase());
+      activetedTag.appendChild(div);
     });
   });
-
-  /**
-   * compare the recipe list with the new filtered recipe list
-   * to obtain a list with the elements who diffair
-   * @param {Array} list1
-   * @param {Array} list2
-   * @returns Array
-   */
-  /* function compareLists (list1, list2) {
-    const diff = [];
-
-    list1.forEach(function (element) {
-      if (!list2.includes(element)) {
-        diff.push(element);
-      }
-    });
-
-    list2.forEach(function (element) {
-      if (!list1.includes(element) && !diff.includes(element)) {
-        diff.push(element);
-      }
-    });
-
-    return diff;
-  } */
-
-  /**
-   * delete and add new flitered list of card
-   * @param {Array} newList
-   */
-  /* function clearAndAppendListCard (newList) {
-    const oldHtmlList = document.querySelector('.section-recipe');
-    while (oldHtmlList.firstChild) {
-      oldHtmlList.removeChild(oldHtmlList.firstChild);
-    }
-
-    const newRecipeList = compareLists(recipes, newList);
-
-    newRecipeList.forEach(recipe => {
-      // eslint-disable-next-line no-undef
-      const newRecipeList = new RecipesFactory(recipe);
-      const card = newRecipeList.createRecipeCard();
-      sectionRecipe.appendChild(card);
-    });
-  } */
-
-  /**
-   * search through recipe name, ingredients and ustensils
-   */
-  /* function search (query, from) {
-    // main search
-    if (from === 'mainSearchBar') {
-      const mainSearchResults = recipes.filter(function (recipe) {
-        return (
-          recipe.name.toLowerCase().includes(query) ||
-            recipe.ingredients.some(function (list) {
-              return list.ingredient.toLowerCase().includes(query);
-            }) ||
-            recipe.description.toLowerCase().includes(query)
-        );
-      });
-      clearAndAppendListCard(mainSearchResults);
-    } else { // filter button search
-      const filterResults = recipes.filter(function (recipe) {
-        return (
-          recipe.appliance.toLowerCase().includes(query) ||
-            recipe.ingredients.some(function (list) {
-              return list.ingredient.toLowerCase().includes(query);
-            }) ||
-            recipe.ustensils.some(function (list) {
-              return list.toLowerCase().includes(query);
-            })
-        );
-      });
-      clearAndAppendListCard(filterResults);
-    }
-  } */
 
   let filteredList = recipes;
 

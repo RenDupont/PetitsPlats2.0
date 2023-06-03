@@ -198,6 +198,27 @@ main {
     }
 }
 
+.activetedTag {
+    height: 60px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 5%;
+    padding: 0 104px 0 104px;
+    &__tag {
+        width: 203px;
+        height: 53px;
+        padding: 0 18px 0 18px;
+        background-color: #FFD15B;
+        border-radius: 10px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 19px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
 .section-recipe {
     display: flex;
     justify-content: space-between;
