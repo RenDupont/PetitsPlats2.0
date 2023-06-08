@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // get list of all ustensiles
-  const listUstensiles = recipes.map((recipe) => recipe.ustensils);
+  const listUstensiles = recipes.flatMap((recipe) => recipe.ustensils);
   const listUniqueUstensiles = [...new Set(listUstensiles)];
 
   // add ustensils list tag to html
@@ -82,23 +82,33 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <i class="fa-solid fa-xmark"></i>
               `;
       div.innerHTML = createTag;
-      search(tag.textContent.toLowerCase());
+      search(tag.textContent.toLowerCase(), 'advancedSearch');
       activetedTag.appendChild(div);
     });
   });
 
+  // delete tag and search anew
   activetedTag.addEventListener('click', function (event) {
     if (event.target.matches('.activetedTag__tag i')) {
       const clickedTag = event.target.parentNode;
       const tagText = clickedTag.querySelector('span').textContent;
       listTag = listTag.filter(tag => tag !== tagText);
       clickedTag.remove();
-      listTag.forEach(tag => {
-        filteredList = [...recipes];
-        search(tag.toLowerCase());
-      });
+      if (listTag.length === 0) {
+        search('');
+      } else {
+        newAdvancedSearch(listTag);
+      }
     }
   });
+
+  function newAdvancedSearch (list) {
+    filteredList = [...recipes];
+    list.forEach(tag => {
+      console.log(tag);
+      search(tag.toLowerCase(), 'advancedSearch');
+    });
+  }
 
   let filteredList = [...recipes];
 
@@ -135,7 +145,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         recipe.description.toLowerCase().includes(query)
         );
       });
-    } else { // filter button search
+    } else if (from === 'advancedSearch') { // filter button search
       filteredList = filteredList.filter(function (recipe) {
         return (
           recipe.appliance.toLowerCase().includes(query) ||
@@ -147,6 +157,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         })
         );
       });
+    } else {
+      filteredList = [...recipes];
     }
 
     clearAndAppendListCard(filteredList);
@@ -155,14 +167,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 /**
  * TODO
- * change icon tag
+ *
  * enleve le space-between pour la liste des recettes
  * modifie les padding/margin entre les bouton/tag/recettes
  * ajoute une icon croix pour les bars de recherche
  * implementer les bar de recherche des bouton de filtre
  * ajoute le temps de preparation des card recipe
  * implemente le changement du nombre de recette
- * implemente le fait de pouvoir suprimer un tag
+ *
  * implemente le fait que la liste de tag possible change en fonction des recettes restante
  *
  * tester le template
