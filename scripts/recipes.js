@@ -165,12 +165,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
+const inputField = document.querySelector('.header__search-bar input');
+const iconCross = document.querySelector('.header__search-bar span');
+
+inputField.addEventListener('input', function () {
+  if (inputField.value !== '') {
+    iconCross.style.display = 'block'; // Affiche l'icône de croix
+  } else {
+    iconCross.style.display = 'none'; // Cache l'icône de croix
+  }
+});
+
 /**
  * TODO
  *
- * enleve le space-between pour la liste des recettes
- * modifie les padding/margin entre les bouton/tag/recettes
- * ajoute une icon croix pour les bars de recherche
+ *
+ *
+ *
  * implementer les bar de recherche des bouton de filtre
  * ajoute le temps de preparation des card recipe
  * implemente le changement du nombre de recette
