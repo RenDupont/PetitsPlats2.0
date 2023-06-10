@@ -68,6 +68,13 @@ main {
   line-height: 22px;
   color: #7A7A7A;
 }
+.header__search-bar span {
+  display: none;
+  position: absolute;
+  top: 27px;
+  right: 80px;
+  font-size: 20px;
+}
 .header__search-bar button {
   position: absolute;
   right: 10px;
@@ -181,6 +188,7 @@ main {
   justify-content: flex-start;
   gap: 5%;
   padding: 0 104px 0 104px;
+  margin-bottom: 60px;
 }
 .activetedTag__tag {
   width: 203px;
@@ -198,11 +206,10 @@ main {
 
 .section-recipe {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   padding: 0 104px 0 104px;
-  min-height: 1000px;
+  min-height: 800px;
 }
 .section-recipe h3 {
   font-family: "Anton";
@@ -225,6 +232,7 @@ main {
   box-shadow: 0px 4px 34px 30px rgba(0, 0, 0, 0.04);
   border-radius: 21px;
   margin-bottom: 68px;
+  margin-left: 30px;
 }
 .section-recipe__card img {
   width: 380px;
