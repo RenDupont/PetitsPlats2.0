@@ -105,8 +105,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   function newAdvancedSearch (list) {
     filteredList = [...recipes];
     list.forEach(tag => {
-      console.log(tag);
-      search(tag.toLowerCase(), 'advancedSearch');
+      const instanceSearch = search(tag.toLowerCase(), filteredList);
+      const test = instanceSearch.advancedSearch();
     });
   }
 
@@ -133,6 +133,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   /**
  * search through recipe name, ingredients, and ustensils
  */
+/*
   function search (query, from) {
   // main search
     if (from === 'mainSearchBar') {
@@ -162,7 +163,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     clearAndAppendListCard(filteredList);
-  }
+  } */
 });
 
 const inputField = document.querySelector('.header__search-bar input');
