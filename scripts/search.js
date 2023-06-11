@@ -1,6 +1,6 @@
 
 // eslint-disable-next-line no-unused-vars
-function search (query, recipes) {
+function searchTest (query, recipes) {
   let filteredList = [...recipes];
 
   function searchMainBar () {
@@ -29,5 +29,5 @@ function search (query, recipes) {
     });
     return filteredList;
   }
-  return { searchMainBar, advancedSearch };
+  return { filteredList, searchMainBar, advancedSearch };
 }

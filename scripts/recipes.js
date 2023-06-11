@@ -62,7 +62,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     event.preventDefault();
     const query = document.querySelector('.header__search-bar input').value.toLowerCase();
     if (query.length >= 3) {
-      search(query, 'mainSearchBar');
+      // eslint-disable-next-line no-undef
+      const instanceSearch = searchTest(query, filteredList);
+      const test = instanceSearch.searchMainBar();
+      clearAndAppendListCard(test);
+      filteredList = instanceSearch.filteredList;
     }
   });
 
@@ -74,7 +78,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   tagBtn.forEach(tag => {
     tag.addEventListener('click', function () {
       listTag.push(tag.textContent);
-      console.log(listTag);
       const div = document.createElement('div');
       div.classList.add('activetedTag__tag');
       const createTag = `
@@ -82,7 +85,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <i class="fa-solid fa-xmark"></i>
               `;
       div.innerHTML = createTag;
-      search(tag.textContent.toLowerCase(), 'advancedSearch');
+      // eslint-disable-next-line no-undef
+      const instanceSearch = searchTest(tag.textContent.toLowerCase(), filteredList);
+      const test = instanceSearch.advancedSearch();
+      clearAndAppendListCard(test);
+      filteredList = instanceSearch.filteredList;
       activetedTag.appendChild(div);
     });
   });
@@ -105,8 +112,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   function newAdvancedSearch (list) {
     filteredList = [...recipes];
     list.forEach(tag => {
-      const instanceSearch = search(tag.toLowerCase(), filteredList);
+      // eslint-disable-next-line no-undef
+      const instanceSearch = searchTest(tag.toLowerCase(), filteredList);
       const test = instanceSearch.advancedSearch();
+      clearAndAppendListCard(test);
+      filteredList = instanceSearch.filteredList;
     });
   }
 
@@ -118,6 +128,7 @@ document.addEventListener('DOMContentLoaded', async () => {
  */
   function clearAndAppendListCard (newList) {
     const oldHtmlList = document.querySelector('.section-recipe');
+    const recipeCount = document.querySelector('.mainHeader__recipeCount');
     while (oldHtmlList.firstChild) {
       oldHtmlList.removeChild(oldHtmlList.firstChild);
     }
@@ -128,12 +139,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       const card = newRecipeList.createRecipeCard();
       sectionRecipe.appendChild(card);
     });
+
+    recipeCount.textContent = newList.length + ' recettes';
   }
 
   /**
  * search through recipe name, ingredients, and ustensils
  */
-/*
   function search (query, from) {
   // main search
     if (from === 'mainSearchBar') {
@@ -163,7 +175,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     clearAndAppendListCard(filteredList);
-  } */
+  }
 });
 
 const inputField = document.querySelector('.header__search-bar input');
@@ -185,7 +197,7 @@ inputField.addEventListener('input', function () {
  *
  * implementer les bar de recherche des bouton de filtre
  * ajoute le temps de preparation des card recipe
- * implemente le changement du nombre de recette
+ *
  *
  * implemente le fait que la liste de tag possible change en fonction des recettes restante
  *
