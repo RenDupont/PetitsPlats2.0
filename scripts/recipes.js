@@ -83,22 +83,28 @@ document.addEventListener('DOMContentLoaded', async () => {
   tagBtn.forEach(tag => {
     tag.addEventListener('click', function () {
       listTag.push(tag.textContent);
-      const div = document.createElement('div');
-      div.classList.add('activetedTag__tag');
-      const createTag = `
-                <span>${tag.textContent}</span>
-                <i class="fa-solid fa-xmark"></i>
-              `;
-      div.innerHTML = createTag;
+      console.log(listTag);
       // eslint-disable-next-line no-undef
       const instanceSearch = searchTest(tag.textContent.toLowerCase(), filteredList);
       filteredList = instanceSearch.advancedSearch();
       clearAndAppendListCard(filteredList);
 
-      console.log(filteredList);
-      activetedTag.appendChild(div);
+      addTagToHtml(tag);
+
+      tag.remove();
     });
   });
+
+  function addTagToHtml (tag) {
+    const div = document.createElement('div');
+    div.classList.add('activetedTag__tag');
+    const createTag = `
+              <span>${tag.textContent}</span>
+              <i class="fa-solid fa-xmark"></i>
+            `;
+    div.innerHTML = createTag;
+    activetedTag.appendChild(div);
+  }
 
   // delete tag and search anew
   activetedTag.addEventListener('click', function (event) {
@@ -110,6 +116,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (listTag.length === 0) {
         const query = document.querySelector('.header__search-bar input').value.toLowerCase();
         if (query !== '' && searched) {
+          // eslint-disable-next-line no-undef
           const instanceSearch = searchTest(query, recipes);
           filteredList = instanceSearch.searchMainBar();
           clearAndAppendListCard(filteredList);
@@ -155,23 +162,34 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     recipeCount.textContent = newList.length + ' recettes';
   }
-});
 
-const inputField = document.querySelector('.header__search-bar input');
-const iconCross = document.querySelector('.header__search-bar span');
+  const inputField = document.querySelector('.header__search-bar input');
+  const iconCross = document.querySelector('.header__search-bar span');
 
-inputField.addEventListener('input', function () {
-  if (inputField.value !== '') {
-    iconCross.style.display = 'block'; // Affiche l'icône de croix
-  } else {
-    iconCross.style.display = 'none'; // Cache l'icône de croix
-  }
-});
+  inputField.addEventListener('input', function () {
+    if (inputField.value !== '') {
+      iconCross.style.display = 'block'; // Affiche l'icône de croix
+    } else {
+      iconCross.style.display = 'none'; // Cache l'icône de croix
+    }
+  });
 
-iconCross.addEventListener('click', function () {
-  inputField.value = '';
-  iconCross.style.display = 'none';
-  searched = false;
+  iconCross.addEventListener('click', function () {
+    inputField.value = '';
+    iconCross.style.display = 'none';
+    searched = false;
+    if (listTag.length !== 0) {
+      listTag.forEach(tag => {
+        // eslint-disable-next-line no-undef
+        const instanceSearch = searchTest(tag.toLowerCase(), recipes);
+        filteredList = instanceSearch.advancedSearch();
+        clearAndAppendListCard(filteredList);
+      });
+    } else {
+      filteredList = [...recipes];
+      clearAndAppendListCard(filteredList);
+    }
+  });
 });
 /**
  * TODO
@@ -180,7 +198,7 @@ iconCross.addEventListener('click', function () {
  *
  *
  * implementer les bar de recherche des bouton de filtre
- * ajoute le temps de preparation des card recipe
+ *
  *
  *
  * implemente le fait que la liste de tag possible change en fonction des recettes restante

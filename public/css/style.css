@@ -134,6 +134,7 @@ main {
   background-color: white;
   top: 47px;
   border-radius: 0 0 11px 11px;
+  z-index: 1;
 }
 .mainHeader__search-bar {
   position: relative;
@@ -232,12 +233,30 @@ main {
   border-radius: 21px;
   margin-bottom: 68px;
   margin-left: 30px;
+  position: relative;
 }
 .section-recipe__card img {
   width: 380px;
   height: 253px;
   object-fit: cover;
   border-radius: 21px 21px 0 0;
+}
+.section-recipe__time {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 65px;
+  height: 26px;
+  background: #FFD15B;
+  border-radius: 14px;
+  top: 21px;
+  right: 20px;
+}
+.section-recipe__time span {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
 }
 .section-recipe__cardContent {
   padding: 0 25px 0 25px;

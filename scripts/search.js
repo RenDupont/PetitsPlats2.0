@@ -1,9 +1,8 @@
 
 // eslint-disable-next-line no-unused-vars
 function searchTest (query, recipes) {
-  let filteredList = recipes;
+  let filteredList = [...recipes];
 
-  console.log(filteredList, '1');
   function searchMainBar () {
     filteredList = filteredList.filter(function (recipe) {
       return (
@@ -14,7 +13,6 @@ function searchTest (query, recipes) {
             recipe.description.toLowerCase().includes(query)
       );
     });
-    console.log(filteredList, '2');
     return filteredList;
   }
   function advancedSearch () {
