@@ -1,4 +1,6 @@
 
+let searched = false;
+
 async function getRecipes () {
   const response = await fetch('../data/recipe.json');
   const recipes = await response.json();
@@ -9,6 +11,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   const recipes = await getRecipes();
   const sectionRecipe = document.querySelector('.section-recipe');
   const searchBnt = document.querySelector('.header__search-bar button');
+
+  const mainSearchBar = document.querySelector('.header__search-bar input');
+  mainSearchBar.value = '';
 
   // get list of all ingredient
   const listIngredients = recipes.map((recipe) => recipe.ingredients.map((ingredient) => ingredient.ingredient)).flat();
@@ -64,9 +69,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (query.length >= 3) {
       // eslint-disable-next-line no-undef
       const instanceSearch = searchTest(query, filteredList);
-      const test = instanceSearch.searchMainBar();
-      clearAndAppendListCard(test);
-      filteredList = instanceSearch.filteredList;
+      filteredList = instanceSearch.searchMainBar();
+      clearAndAppendListCard(filteredList);
+      searched = true;
     }
   });
 
@@ -87,9 +92,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       div.innerHTML = createTag;
       // eslint-disable-next-line no-undef
       const instanceSearch = searchTest(tag.textContent.toLowerCase(), filteredList);
-      const test = instanceSearch.advancedSearch();
-      clearAndAppendListCard(test);
-      filteredList = instanceSearch.filteredList;
+      filteredList = instanceSearch.advancedSearch();
+      clearAndAppendListCard(filteredList);
+
+      console.log(filteredList);
       activetedTag.appendChild(div);
     });
   });
@@ -102,7 +108,15 @@ document.addEventListener('DOMContentLoaded', async () => {
       listTag = listTag.filter(tag => tag !== tagText);
       clickedTag.remove();
       if (listTag.length === 0) {
-        search('');
+        const query = document.querySelector('.header__search-bar input').value.toLowerCase();
+        if (query !== '' && searched) {
+          const instanceSearch = searchTest(query, recipes);
+          filteredList = instanceSearch.searchMainBar();
+          clearAndAppendListCard(filteredList);
+        } else {
+          filteredList = [...recipes];
+          clearAndAppendListCard(filteredList);
+        }
       } else {
         newAdvancedSearch(listTag);
       }
@@ -114,9 +128,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     list.forEach(tag => {
       // eslint-disable-next-line no-undef
       const instanceSearch = searchTest(tag.toLowerCase(), filteredList);
-      const test = instanceSearch.advancedSearch();
-      clearAndAppendListCard(test);
-      filteredList = instanceSearch.filteredList;
+      filteredList = instanceSearch.advancedSearch();
+      clearAndAppendListCard(filteredList);
     });
   }
 
@@ -142,40 +155,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     recipeCount.textContent = newList.length + ' recettes';
   }
-
-  /**
- * search through recipe name, ingredients, and ustensils
- */
-  function search (query, from) {
-  // main search
-    if (from === 'mainSearchBar') {
-      filteredList = recipes.filter(function (recipe) {
-        return (
-          recipe.name.toLowerCase().includes(query) ||
-        recipe.ingredients.some(function (list) {
-          return list.ingredient.toLowerCase().includes(query);
-        }) ||
-        recipe.description.toLowerCase().includes(query)
-        );
-      });
-    } else if (from === 'advancedSearch') { // filter button search
-      filteredList = filteredList.filter(function (recipe) {
-        return (
-          recipe.appliance.toLowerCase().includes(query) ||
-        recipe.ingredients.some(function (list) {
-          return list.ingredient.toLowerCase().includes(query);
-        }) ||
-        recipe.ustensils.some(function (list) {
-          return list.toLowerCase().includes(query);
-        })
-        );
-      });
-    } else {
-      filteredList = [...recipes];
-    }
-
-    clearAndAppendListCard(filteredList);
-  }
 });
 
 const inputField = document.querySelector('.header__search-bar input');
@@ -189,6 +168,11 @@ inputField.addEventListener('input', function () {
   }
 });
 
+iconCross.addEventListener('click', function () {
+  inputField.value = '';
+  iconCross.style.display = 'none';
+  searched = false;
+});
 /**
  * TODO
  *
