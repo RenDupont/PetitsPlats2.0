@@ -155,7 +155,24 @@ main {
   top: 10px;
   color: #7A7A7A;
 }
-.mainHeader span {
+.mainHeader__activetedTag {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 195px;
+  gap: 1px;
+}
+.mainHeader__activetedTag span {
+  display: flex;
+  align-items: center;
+  height: 37px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  background: #FFD15B;
+  padding-left: 16px;
+}
+.mainHeader__recipeCount {
   font-family: "Anton";
   font-weight: 400;
   font-size: 21px;

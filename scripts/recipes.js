@@ -83,7 +83,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   tagBtn.forEach(tag => {
     tag.addEventListener('click', function () {
       listTag.push(tag.textContent);
-      console.log(listTag);
       // eslint-disable-next-line no-undef
       const instanceSearch = searchTest(tag.textContent.toLowerCase(), filteredList);
       filteredList = instanceSearch.advancedSearch();
@@ -96,14 +95,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   function addTagToHtml (tag) {
-    const div = document.createElement('div');
-    div.classList.add('activetedTag__tag');
-    const createTag = `
+    const BigTag = document.createElement('div');
+    BigTag.classList.add('activetedTag__tag');
+    const createBigTag = `
               <span>${tag.textContent}</span>
               <i class="fa-solid fa-xmark"></i>
             `;
-    div.innerHTML = createTag;
-    activetedTag.appendChild(div);
+    BigTag.innerHTML = createBigTag;
+    activetedTag.appendChild(BigTag);
+
+    const SmallTag = document.createElement('span');
+    SmallTag.textContent = tag.textContent;
+    const grandParentElement = tag.parentElement.parentElement;
+    const filterActivetedTag = grandParentElement.querySelector('.mainHeader__activetedTag');
+    filterActivetedTag.appendChild(SmallTag);
   }
 
   // delete tag and search anew
