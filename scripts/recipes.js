@@ -1,4 +1,6 @@
 
+let searched = false;
+
 async function getRecipes () {
   const response = await fetch('../data/recipe.json');
   const recipes = await response.json();
@@ -9,6 +11,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   const recipes = await getRecipes();
   const sectionRecipe = document.querySelector('.section-recipe');
   const searchBnt = document.querySelector('.header__search-bar button');
+
+  const mainSearchBar = document.querySelector('.header__search-bar input');
+  mainSearchBar.value = '';
 
   // get list of all ingredient
   const listIngredients = recipes.map((recipe) => recipe.ingredients.map((ingredient) => ingredient.ingredient)).flat();
@@ -62,7 +67,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     event.preventDefault();
     const query = document.querySelector('.header__search-bar input').value.toLowerCase();
     if (query.length >= 3) {
-      search(query, 'mainSearchBar');
+      // eslint-disable-next-line no-undef
+      const instanceSearch = searchTest(query, filteredList);
+      filteredList = instanceSearch.searchMainBar();
+      clearAndAppendListCard(filteredList);
+      searched = true;
     }
   });
 
@@ -74,18 +83,39 @@ document.addEventListener('DOMContentLoaded', async () => {
   tagBtn.forEach(tag => {
     tag.addEventListener('click', function () {
       listTag.push(tag.textContent);
-      console.log(listTag);
-      const div = document.createElement('div');
-      div.classList.add('activetedTag__tag');
-      const createTag = `
-                <span>${tag.textContent}</span>
-                <i class="fa-solid fa-xmark"></i>
-              `;
-      div.innerHTML = createTag;
-      search(tag.textContent.toLowerCase(), 'advancedSearch');
-      activetedTag.appendChild(div);
+      // eslint-disable-next-line no-undef
+      const instanceSearch = searchTest(tag.textContent.toLowerCase(), filteredList);
+      filteredList = instanceSearch.advancedSearch();
+      clearAndAppendListCard(filteredList);
+
+      addTagToHtml(tag);
+
+      tag.remove();
     });
   });
+
+  function addTagToHtml (tag) {
+    const BigTag = document.createElement('div');
+    BigTag.classList.add('activetedTag__tag');
+    const createBigTag = `
+              <span>${tag.textContent}</span>
+              <i class="fa-solid fa-xmark"></i>
+            `;
+    BigTag.innerHTML = createBigTag;
+    activetedTag.appendChild(BigTag);
+
+    const smallTag = document.createElement('div');
+    smallTag.classList.add('mainHeader__tag');
+    const createSmallTag = `
+              <span>${tag.textContent}</span>
+              <i class="fa-solid fa-circle-xmark"></i>
+            `;
+    smallTag.innerHTML = createSmallTag;
+
+    const grandParentElement = tag.parentElement.parentElement;
+    const filterActivetedTag = grandParentElement.querySelector('.mainHeader__activetedTags');
+    filterActivetedTag.appendChild(smallTag);
+  }
 
   // delete tag and search anew
   activetedTag.addEventListener('click', function (event) {
@@ -95,7 +125,16 @@ document.addEventListener('DOMContentLoaded', async () => {
       listTag = listTag.filter(tag => tag !== tagText);
       clickedTag.remove();
       if (listTag.length === 0) {
-        search('');
+        const query = document.querySelector('.header__search-bar input').value.toLowerCase();
+        if (query !== '' && searched) {
+          // eslint-disable-next-line no-undef
+          const instanceSearch = searchTest(query, recipes);
+          filteredList = instanceSearch.searchMainBar();
+          clearAndAppendListCard(filteredList);
+        } else {
+          filteredList = [...recipes];
+          clearAndAppendListCard(filteredList);
+        }
       } else {
         newAdvancedSearch(listTag);
       }
@@ -105,8 +144,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   function newAdvancedSearch (list) {
     filteredList = [...recipes];
     list.forEach(tag => {
-      console.log(tag);
-      search(tag.toLowerCase(), 'advancedSearch');
+      // eslint-disable-next-line no-undef
+      const instanceSearch = searchTest(tag.toLowerCase(), filteredList);
+      filteredList = instanceSearch.advancedSearch();
+      clearAndAppendListCard(filteredList);
     });
   }
 
@@ -118,6 +159,7 @@ document.addEventListener('DOMContentLoaded', async () => {
  */
   function clearAndAppendListCard (newList) {
     const oldHtmlList = document.querySelector('.section-recipe');
+    const recipeCount = document.querySelector('.mainHeader__recipeCount');
     while (oldHtmlList.firstChild) {
       oldHtmlList.removeChild(oldHtmlList.firstChild);
     }
@@ -128,65 +170,43 @@ document.addEventListener('DOMContentLoaded', async () => {
       const card = newRecipeList.createRecipeCard();
       sectionRecipe.appendChild(card);
     });
+
+    recipeCount.textContent = newList.length + ' recettes';
   }
 
-  /**
- * search through recipe name, ingredients, and ustensils
- */
-  function search (query, from) {
-  // main search
-    if (from === 'mainSearchBar') {
-      filteredList = recipes.filter(function (recipe) {
-        return (
-          recipe.name.toLowerCase().includes(query) ||
-        recipe.ingredients.some(function (list) {
-          return list.ingredient.toLowerCase().includes(query);
-        }) ||
-        recipe.description.toLowerCase().includes(query)
-        );
-      });
-    } else if (from === 'advancedSearch') { // filter button search
-      filteredList = filteredList.filter(function (recipe) {
-        return (
-          recipe.appliance.toLowerCase().includes(query) ||
-        recipe.ingredients.some(function (list) {
-          return list.ingredient.toLowerCase().includes(query);
-        }) ||
-        recipe.ustensils.some(function (list) {
-          return list.toLowerCase().includes(query);
-        })
-        );
+  const inputField = document.querySelector('.header__search-bar input');
+  const iconCross = document.querySelector('.header__search-bar span');
+
+  inputField.addEventListener('input', function () {
+    if (inputField.value !== '') {
+      iconCross.style.display = 'block'; // Affiche l'icône de croix
+    } else {
+      iconCross.style.display = 'none'; // Cache l'icône de croix
+    }
+  });
+
+  iconCross.addEventListener('click', function () {
+    inputField.value = '';
+    iconCross.style.display = 'none';
+    searched = false;
+    if (listTag.length !== 0) {
+      listTag.forEach(tag => {
+        // eslint-disable-next-line no-undef
+        const instanceSearch = searchTest(tag.toLowerCase(), recipes);
+        filteredList = instanceSearch.advancedSearch();
+        clearAndAppendListCard(filteredList);
       });
     } else {
       filteredList = [...recipes];
+      clearAndAppendListCard(filteredList);
     }
-
-    clearAndAppendListCard(filteredList);
-  }
+  });
 });
-
-const inputField = document.querySelector('.header__search-bar input');
-const iconCross = document.querySelector('.header__search-bar span');
-
-inputField.addEventListener('input', function () {
-  if (inputField.value !== '') {
-    iconCross.style.display = 'block'; // Affiche l'icône de croix
-  } else {
-    iconCross.style.display = 'none'; // Cache l'icône de croix
-  }
-});
-
 /**
  * TODO
- *
- *
- *
- *
  * implementer les bar de recherche des bouton de filtre
- * ajoute le temps de preparation des card recipe
- * implemente le changement du nombre de recette
- *
+ * regarder export module
  * implemente le fait que la liste de tag possible change en fonction des recettes restante
- *
  * tester le template
+ * terminer visuel (maquette)
  */

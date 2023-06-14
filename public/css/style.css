@@ -74,6 +74,8 @@ main {
   top: 27px;
   right: 80px;
   font-size: 20px;
+  color: #7A7A7A;
+  cursor: pointer;
 }
 .header__search-bar button {
   position: absolute;
@@ -84,6 +86,13 @@ main {
   width: 51px;
   height: 52px;
   border: none;
+  cursor: pointer;
+}
+.header__search-bar button:hover {
+  background: #FFD15B;
+}
+.header__search-bar button:hover i {
+  color: black;
 }
 .header__search-bar button i {
   font-size: 30px;
@@ -134,6 +143,7 @@ main {
   background-color: white;
   top: 47px;
   border-radius: 0 0 11px 11px;
+  z-index: 1;
 }
 .mainHeader__search-bar {
   position: relative;
@@ -154,7 +164,38 @@ main {
   top: 10px;
   color: #7A7A7A;
 }
-.mainHeader span {
+.mainHeader__activetedTags {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 195px;
+  gap: 1px;
+}
+.mainHeader__tag {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 37px;
+  background: #FFD15B;
+  padding-left: 16px;
+  padding-right: 14px;
+}
+.mainHeader__tag span {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+}
+.mainHeader__tag:hover span {
+  font-weight: 700;
+}
+.mainHeader__tag i {
+  display: none;
+  cursor: pointer;
+}
+.mainHeader__tag:hover i {
+  display: block;
+}
+.mainHeader__recipeCount {
   font-family: "Anton";
   font-weight: 400;
   font-size: 21px;
@@ -177,13 +218,13 @@ main {
   line-height: 35px;
   height: 35px;
   padding-left: 16px;
+  cursor: pointer;
 }
 .mainHeader__listTag button:hover {
   background-color: #FFD16B;
 }
 
 .activetedTag {
-  height: 60px;
   display: flex;
   justify-content: flex-start;
   gap: 5%;
@@ -203,6 +244,9 @@ main {
   justify-content: space-between;
   align-items: center;
 }
+.activetedTag i:hover {
+  cursor: pointer;
+}
 
 .section-recipe {
   display: flex;
@@ -210,6 +254,7 @@ main {
   flex-wrap: wrap;
   padding: 0 104px 0 104px;
   min-height: 800px;
+  gap: 45px;
 }
 .section-recipe h3 {
   font-family: "Anton";
@@ -231,14 +276,30 @@ main {
   background-color: white;
   box-shadow: 0px 4px 34px 30px rgba(0, 0, 0, 0.04);
   border-radius: 21px;
-  margin-bottom: 68px;
-  margin-left: 30px;
+  position: relative;
 }
 .section-recipe__card img {
   width: 380px;
   height: 253px;
   object-fit: cover;
   border-radius: 21px 21px 0 0;
+}
+.section-recipe__time {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 65px;
+  height: 26px;
+  background: #FFD15B;
+  border-radius: 14px;
+  top: 21px;
+  right: 20px;
+}
+.section-recipe__time span {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
 }
 .section-recipe__cardContent {
   padding: 0 25px 0 25px;

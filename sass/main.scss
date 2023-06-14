@@ -82,6 +82,8 @@ main {
             top: 27px;
             right: 80px;
             font-size: 20px;
+            color: $searchBar-color;
+            cursor: pointer;
         }
         
         button {
@@ -93,7 +95,13 @@ main {
             width: 51px;
             height: 52px;
             border: none;
-
+            cursor: pointer;
+            &:hover {
+                background: #FFD15B;
+            }
+            &:hover i {
+                color: black;
+            }
             i {
                 font-size: 30px;
                 color: white;
@@ -126,7 +134,6 @@ main {
         font-weight: 500;
         font-size: 16px;
         line-height: 22px;
-
         i {
             position: absolute;
             top: 20px;
@@ -152,6 +159,7 @@ main {
         background-color: white;
         top: 47px;
         border-radius: 0 0 11px 11px;
+        z-index: 1;
     }
 
     &__search-bar {
@@ -174,7 +182,41 @@ main {
         }
     }
 
-    span {
+    &__activetedTags {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 195px;
+        gap: 1px;
+    }
+
+    &__tag {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 37px;
+        background: #FFD15B;
+        padding-left: 16px;
+        padding-right: 14px;
+        span {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+        }
+        &:hover span{
+            font-weight: 700;
+        }
+        i {
+            display: none;
+            cursor: pointer;
+        }
+        &:hover i {
+            display: block;
+        }
+
+    }
+
+    &__recipeCount {
         font-family: $font-family-title;
         font-weight: 400;
         font-size: 21px;
@@ -198,6 +240,7 @@ main {
             line-height: 35px;
             height: 35px;
             padding-left: 16px;
+            cursor: pointer;
         }
 
         button:hover {
@@ -207,7 +250,6 @@ main {
 }
 
 .activetedTag {
-    height: 60px;
     display: flex;
     justify-content: flex-start;
     gap: 5%;
@@ -226,6 +268,9 @@ main {
         justify-content: space-between;
         align-items: center;
     }
+    i:hover {
+        cursor: pointer;
+    }
 }
 
 .section-recipe {
@@ -234,6 +279,7 @@ main {
     flex-wrap: wrap;
     padding: 0 104px 0 104px;
     min-height: 800px;
+    gap: 45px;
     h3 {
         font-family: $font-family-title;
         font-weight: 400;
@@ -254,13 +300,29 @@ main {
         background-color: white;
         box-shadow: 0px 4px 34px 30px rgba(0, 0, 0, 0.04);
         border-radius: 21px;
-        margin-bottom: 68px;
-        margin-left: 30px;
+        position: relative;
         img {
             width: 380px;
             height: 253px;
             object-fit: cover;
             border-radius: 21px 21px 0 0;
+        }
+    }
+    &__time {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 65px;
+        height: 26px;
+        background: #FFD15B;
+        border-radius: 14px;
+        top: 21px;
+        right: 20px;
+        span {
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 16px;
         }
     }
     &__cardContent {
