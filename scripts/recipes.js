@@ -104,11 +104,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     BigTag.innerHTML = createBigTag;
     activetedTag.appendChild(BigTag);
 
-    const SmallTag = document.createElement('span');
-    SmallTag.textContent = tag.textContent;
+    const smallTag = document.createElement('div');
+    smallTag.classList.add('mainHeader__tag');
+    const createSmallTag = `
+              <span>${tag.textContent}</span>
+              <i class="fa-solid fa-circle-xmark"></i>
+            `;
+    smallTag.innerHTML = createSmallTag;
+
     const grandParentElement = tag.parentElement.parentElement;
-    const filterActivetedTag = grandParentElement.querySelector('.mainHeader__activetedTag');
-    filterActivetedTag.appendChild(SmallTag);
+    const filterActivetedTag = grandParentElement.querySelector('.mainHeader__activetedTags');
+    filterActivetedTag.appendChild(smallTag);
   }
 
   // delete tag and search anew
@@ -198,15 +204,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 /**
  * TODO
- *
- *
- *
- *
  * implementer les bar de recherche des bouton de filtre
- *
- *
- *
+ * regarder export module
  * implemente le fait que la liste de tag possible change en fonction des recettes restante
- *
  * tester le template
+ * terminer visuel (maquette)
  */

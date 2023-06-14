@@ -74,6 +74,8 @@ main {
   top: 27px;
   right: 80px;
   font-size: 20px;
+  color: #7A7A7A;
+  cursor: pointer;
 }
 .header__search-bar button {
   position: absolute;
@@ -84,6 +86,13 @@ main {
   width: 51px;
   height: 52px;
   border: none;
+  cursor: pointer;
+}
+.header__search-bar button:hover {
+  background: #FFD15B;
+}
+.header__search-bar button:hover i {
+  color: black;
 }
 .header__search-bar button i {
   font-size: 30px;
@@ -155,22 +164,36 @@ main {
   top: 10px;
   color: #7A7A7A;
 }
-.mainHeader__activetedTag {
+.mainHeader__activetedTags {
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 195px;
   gap: 1px;
 }
-.mainHeader__activetedTag span {
+.mainHeader__tag {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   height: 37px;
+  background: #FFD15B;
+  padding-left: 16px;
+  padding-right: 14px;
+}
+.mainHeader__tag span {
   font-weight: 400;
   font-size: 14px;
   line-height: 19px;
-  background: #FFD15B;
-  padding-left: 16px;
+}
+.mainHeader__tag:hover span {
+  font-weight: 700;
+}
+.mainHeader__tag i {
+  display: none;
+  cursor: pointer;
+}
+.mainHeader__tag:hover i {
+  display: block;
 }
 .mainHeader__recipeCount {
   font-family: "Anton";
@@ -195,6 +218,7 @@ main {
   line-height: 35px;
   height: 35px;
   padding-left: 16px;
+  cursor: pointer;
 }
 .mainHeader__listTag button:hover {
   background-color: #FFD16B;
@@ -220,6 +244,9 @@ main {
   justify-content: space-between;
   align-items: center;
 }
+.activetedTag i:hover {
+  cursor: pointer;
+}
 
 .section-recipe {
   display: flex;
@@ -227,6 +254,7 @@ main {
   flex-wrap: wrap;
   padding: 0 104px 0 104px;
   min-height: 800px;
+  gap: 45px;
 }
 .section-recipe h3 {
   font-family: "Anton";
@@ -248,8 +276,6 @@ main {
   background-color: white;
   box-shadow: 0px 4px 34px 30px rgba(0, 0, 0, 0.04);
   border-radius: 21px;
-  margin-bottom: 68px;
-  margin-left: 30px;
   position: relative;
 }
 .section-recipe__card img {
