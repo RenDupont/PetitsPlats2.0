@@ -79,7 +79,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // event from filter botton
   const tagBtn = document.querySelectorAll('.mainHeader__tag');
-  const activetedTag = document.querySelector('.activetedTag');
+  const activetedBigTag = document.querySelector('.activetedTag');
+  const activetedSmallTags = document.querySelectorAll('.mainHeader__activetedTags');
   tagBtn.forEach(tag => {
     tag.addEventListener('click', function () {
       listTag.push(tag.textContent);
@@ -102,7 +103,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               <i class="fa-solid fa-xmark"></i>
             `;
     BigTag.innerHTML = createBigTag;
-    activetedTag.appendChild(BigTag);
+    activetedBigTag.appendChild(BigTag);
 
     const smallTag = document.createElement('div');
     smallTag.classList.add('mainHeader__tag');
@@ -118,12 +119,22 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // delete tag and search anew
-  activetedTag.addEventListener('click', function (event) {
+  activetedBigTag.addEventListener('click', function (event) {
     if (event.target.matches('.activetedTag__tag i')) {
       const clickedTag = event.target.parentNode;
       const tagText = clickedTag.querySelector('span').textContent;
+
       listTag = listTag.filter(tag => tag !== tagText);
+
       clickedTag.remove();
+
+      const listSmallTags = Array.from(activetedSmallTags).flatMap(element => Array.from(element.children));
+      listSmallTags.forEach((smallTag) => {
+        if (smallTag.querySelector('span').textContent === tagText) {
+          smallTag.remove();
+        }
+      });
+
       if (listTag.length === 0) {
         const query = document.querySelector('.header__search-bar input').value.toLowerCase();
         if (query !== '' && searched) {
@@ -139,6 +150,41 @@ document.addEventListener('DOMContentLoaded', async () => {
         newAdvancedSearch(listTag);
       }
     }
+  });
+
+  activetedSmallTags.forEach(activetedSmallTag => {
+    activetedSmallTag.addEventListener('click', function (event) {
+      if (event.target.matches('.mainHeader__tag i')) {
+        const clickedTag = event.target.parentNode;
+        const tagText = clickedTag.querySelector('span').textContent;
+
+        listTag = listTag.filter(tag => tag !== tagText);
+
+        clickedTag.remove();
+
+        const listBigTag = Array.from(activetedBigTag.children);
+        listBigTag.forEach((BigTag) => {
+          if (BigTag.querySelector('span').textContent === tagText) {
+            BigTag.remove();
+          }
+        });
+
+        if (listTag.length === 0) {
+          const query = document.querySelector('.header__search-bar input').value.toLowerCase();
+          if (query !== '' && searched) {
+            // eslint-disable-next-line no-undef
+            const instanceSearch = searchTest(query, recipes);
+            filteredList = instanceSearch.searchMainBar();
+            clearAndAppendListCard(filteredList);
+          } else {
+            filteredList = [...recipes];
+            clearAndAppendListCard(filteredList);
+          }
+        } else {
+          newAdvancedSearch(listTag);
+        }
+      }
+    });
   });
 
   function newAdvancedSearch (list) {
