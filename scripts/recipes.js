@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // delete tag and search anew
+  // a refactorer
   activetedBigTag.addEventListener('click', function (event) {
     if (event.target.matches('.activetedTag__tag i')) {
       const clickedTag = event.target.parentNode;
@@ -152,6 +153,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
+  // à refactorer
   activetedSmallTags.forEach(activetedSmallTag => {
     activetedSmallTag.addEventListener('click', function (event) {
       if (event.target.matches('.mainHeader__tag i')) {
@@ -196,6 +198,24 @@ document.addEventListener('DOMContentLoaded', async () => {
       clearAndAppendListCard(filteredList);
     });
   }
+
+  const secondarySearchBars = document.querySelectorAll('.mainHeader__search-bar input');
+  secondarySearchBars.forEach(searchBar => {
+    searchBar.addEventListener('keyup', function (event) {
+      const input = event.target.value.toLowerCase();
+      const grandParentElement = event.target.parentElement.parentElement;
+      const list = grandParentElement.querySelectorAll('.mainHeader__tag');
+      console.log(event.target.value);
+      for (let i = 0; i < list.length; i++) {
+        const txtValue = list[i].textContent;
+        if (txtValue.toLowerCase().indexOf(input) > -1) {
+          list[i].style.display = '';
+        } else {
+          list[i].style.display = 'none';
+        }
+      }
+    });
+  });
 
   let filteredList = [...recipes];
 
@@ -250,9 +270,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 /**
  * TODO
- * implementer les bar de recherche des bouton de filtre
+ *
  * regarder export module
  * implemente le fait que la liste de tag possible change en fonction des recettes restante
  * tester le template
- * terminer visuel (maquette)
+ *
  */
