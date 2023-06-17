@@ -19,6 +19,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-repeat: no-repeat;
 }
 .header__logo {
   position: absolute;
@@ -100,10 +101,11 @@ main {
 }
 
 .mainHeader {
-  padding: 30px 104px 55px 104px;
+  padding: 30px 5% 55px 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 5%;
 }
 .mainHeader__buttonList {
   width: 717px;
@@ -200,6 +202,7 @@ main {
   font-weight: 400;
   font-size: 21px;
   line-height: 32px;
+  white-space: nowrap;
 }
 .mainHeader__listTag {
   display: flex;
@@ -252,7 +255,7 @@ main {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  padding: 0 104px 0 104px;
+  padding: 0 5% 0 5%;
   min-height: 800px;
   gap: 45px;
 }
