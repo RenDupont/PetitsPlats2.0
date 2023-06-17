@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       // eslint-disable-next-line no-undef
       const instanceSearch = searchTest(query, filteredList);
       filteredList = instanceSearch.searchMainBar();
+      console.log(filteredList, '-1');
       clearAndAppendListCard(filteredList);
       searched = true;
     }
@@ -99,8 +100,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       clearAndAppendListCard(filteredList);
 
       addTagToHtml(tag);
-
+      console.log(tag);
       tag.remove();
+      uptdateFilterList(filteredList, tag);
     });
   });
 
@@ -151,9 +153,11 @@ document.addEventListener('DOMContentLoaded', async () => {
           // eslint-disable-next-line no-undef
           const instanceSearch = searchTest(query, recipes);
           filteredList = instanceSearch.searchMainBar();
+          console.log(filteredList, '1');
           clearAndAppendListCard(filteredList);
         } else {
           filteredList = [...recipes];
+          console.log(filteredList, '2');
           clearAndAppendListCard(filteredList);
         }
       } else {
@@ -186,9 +190,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             // eslint-disable-next-line no-undef
             const instanceSearch = searchTest(query, recipes);
             filteredList = instanceSearch.searchMainBar();
+            console.log(filteredList, '3');
             clearAndAppendListCard(filteredList);
           } else {
             filteredList = [...recipes];
+            console.log(filteredList, '4');
             clearAndAppendListCard(filteredList);
           }
         } else {
@@ -204,7 +210,27 @@ document.addEventListener('DOMContentLoaded', async () => {
       // eslint-disable-next-line no-undef
       const instanceSearch = searchTest(tag.toLowerCase(), filteredList);
       filteredList = instanceSearch.advancedSearch();
+      console.log(filteredList, '5');
       clearAndAppendListCard(filteredList);
+    });
+  }
+
+  function uptdateFilterList (list, tag) {
+    let newIngredientList = list.map((recipe) => recipe.ingredients.map((ingredient) => ingredient.ingredient)).flat();
+    newIngredientList = newIngredientList.filter(ingredient => ingredient !== tag.textContent);
+    const newListUniqueIngredient = [...new Set(newIngredientList)];
+    newListUniqueIngredient.sort(function (a, b) {
+      return a.localeCompare(b);
+    });
+    const ingrédientsListTag = document.getElementById('ingrédients-ListTag');
+    while (ingrédientsListTag.firstChild) {
+      ingrédientsListTag.removeChild(ingrédientsListTag.firstChild);
+    }
+    newListUniqueIngredient.forEach(ingredient => {
+      const buttonIngredient = document.createElement('button');
+      buttonIngredient.innerHTML = ingredient;
+      buttonIngredient.classList.add('mainHeader__tag');
+      ingrédientsListTag.appendChild(buttonIngredient);
     });
   }
 
