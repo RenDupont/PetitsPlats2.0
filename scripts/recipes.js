@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   // get list of all ingredient
   const listIngredients = recipes.map((recipe) => recipe.ingredients.map((ingredient) => ingredient.ingredient)).flat();
   const listUniqueIngredient = [...new Set(listIngredients)];
+  listUniqueIngredient.sort(function (a, b) {
+    return a.localeCompare(b);
+  });
 
   // add ingredient list tag to html
   listUniqueIngredient.forEach(ingredient => {
@@ -31,6 +34,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   // get list of all appliance
   const listAppliance = recipes.flatMap((recipe) => recipe.appliance);
   const listUniqueAppliance = [...new Set(listAppliance)];
+  listUniqueAppliance.sort(function (a, b) {
+    return a.localeCompare(b);
+  });
 
   // add appliance list tag to html
   listUniqueAppliance.forEach(appliance => {
@@ -44,6 +50,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   // get list of all ustensiles
   const listUstensiles = recipes.flatMap((recipe) => recipe.ustensils);
   const listUniqueUstensiles = [...new Set(listUstensiles)];
+  listUniqueUstensiles.sort(function (a, b) {
+    return a.localeCompare(b);
+  });
 
   // add ustensils list tag to html
   listUniqueUstensiles.forEach(ustensil => {
