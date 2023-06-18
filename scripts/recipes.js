@@ -79,7 +79,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       // eslint-disable-next-line no-undef
       const instanceSearch = searchTest(query, filteredList);
       filteredList = instanceSearch.searchMainBar();
-      console.log(filteredList, '-1');
       clearAndAppendListCard(filteredList);
       searched = true;
     }
@@ -88,23 +87,25 @@ document.addEventListener('DOMContentLoaded', async () => {
   let listTag = [];
 
   // event from filter botton
-  const tagBtn = document.querySelectorAll('.mainHeader__tag');
+  let tagBtn = document.querySelectorAll('.mainHeader__tag');
   const activetedBigTag = document.querySelector('.activetedTag');
   const activetedSmallTags = document.querySelectorAll('.mainHeader__activetedTags');
-  tagBtn.forEach(tag => {
-    tag.addEventListener('click', function () {
-      listTag.push(tag.textContent);
-      // eslint-disable-next-line no-undef
-      const instanceSearch = searchTest(tag.textContent.toLowerCase(), filteredList);
-      filteredList = instanceSearch.advancedSearch();
-      clearAndAppendListCard(filteredList);
+  function addEventListenerToTags () {
+    tagBtn.forEach(tag => {
+      tag.addEventListener('click', function () {
+        listTag.push(tag.textContent);
+        // eslint-disable-next-line no-undef
+        const instanceSearch = searchTest(tag.textContent.toLowerCase(), filteredList);
+        filteredList = instanceSearch.advancedSearch();
+        clearAndAppendListCard(filteredList);
 
-      addTagToHtml(tag);
-      console.log(tag);
-      tag.remove();
-      uptdateFilterList(filteredList, tag);
+        addTagToHtml(tag);
+        tag.remove();
+        uptdateFilterList(filteredList, tag.textContent);
+      });
     });
-  });
+  }
+  addEventListenerToTags();
 
   function addTagToHtml (tag) {
     const BigTag = document.createElement('div');
@@ -153,12 +154,12 @@ document.addEventListener('DOMContentLoaded', async () => {
           // eslint-disable-next-line no-undef
           const instanceSearch = searchTest(query, recipes);
           filteredList = instanceSearch.searchMainBar();
-          console.log(filteredList, '1');
           clearAndAppendListCard(filteredList);
+          uptdateFilterList(filteredList);
         } else {
           filteredList = [...recipes];
-          console.log(filteredList, '2');
           clearAndAppendListCard(filteredList);
+          uptdateFilterList(filteredList);
         }
       } else {
         newAdvancedSearch(listTag);
@@ -190,12 +191,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             // eslint-disable-next-line no-undef
             const instanceSearch = searchTest(query, recipes);
             filteredList = instanceSearch.searchMainBar();
-            console.log(filteredList, '3');
             clearAndAppendListCard(filteredList);
+            uptdateFilterList(filteredList);
           } else {
             filteredList = [...recipes];
-            console.log(filteredList, '4');
             clearAndAppendListCard(filteredList);
+            uptdateFilterList(filteredList);
           }
         } else {
           newAdvancedSearch(listTag);
@@ -210,28 +211,74 @@ document.addEventListener('DOMContentLoaded', async () => {
       // eslint-disable-next-line no-undef
       const instanceSearch = searchTest(tag.toLowerCase(), filteredList);
       filteredList = instanceSearch.advancedSearch();
-      console.log(filteredList, '5');
       clearAndAppendListCard(filteredList);
+      uptdateFilterList(filteredList);
     });
   }
 
-  function uptdateFilterList (list, tag) {
+  function uptdateFilterList (list, tag = '') {
+    // new ingrediants
     let newIngredientList = list.map((recipe) => recipe.ingredients.map((ingredient) => ingredient.ingredient)).flat();
-    newIngredientList = newIngredientList.filter(ingredient => ingredient !== tag.textContent);
+    newIngredientList = newIngredientList.filter(ingredient => ingredient !== tag);
     const newListUniqueIngredient = [...new Set(newIngredientList)];
     newListUniqueIngredient.sort(function (a, b) {
       return a.localeCompare(b);
     });
+
     const ingrédientsListTag = document.getElementById('ingrédients-ListTag');
     while (ingrédientsListTag.firstChild) {
       ingrédientsListTag.removeChild(ingrédientsListTag.firstChild);
     }
+
     newListUniqueIngredient.forEach(ingredient => {
       const buttonIngredient = document.createElement('button');
       buttonIngredient.innerHTML = ingredient;
       buttonIngredient.classList.add('mainHeader__tag');
       ingrédientsListTag.appendChild(buttonIngredient);
     });
+
+    // new appliances
+    let newListAppliance = list.flatMap((recipe) => recipe.appliance);
+    newListAppliance = newListAppliance.filter(appliance => appliance !== tag);
+    const newListUniqueAppliance = [...new Set(newListAppliance)];
+    newListUniqueAppliance.sort(function (a, b) {
+      return a.localeCompare(b);
+    });
+
+    const applianceListTag = document.getElementById('appliance-ListTag');
+    while (applianceListTag.firstChild) {
+      applianceListTag.removeChild(applianceListTag.firstChild);
+    }
+
+    newListUniqueAppliance.forEach(appliance => {
+      const buttonAppliance = document.createElement('button');
+      buttonAppliance.innerHTML = appliance;
+      buttonAppliance.classList.add('mainHeader__tag');
+      applianceListTag.appendChild(buttonAppliance);
+    });
+
+    // new ustensiles
+    let newListUstensiles = list.flatMap((recipe) => recipe.ustensils);
+    newListUstensiles = newListUstensiles.filter(ustensile => ustensile !== tag);
+    const newListUniqueUstensiles = [...new Set(newListUstensiles)];
+    newListUniqueUstensiles.sort(function (a, b) {
+      return a.localeCompare(b);
+    });
+
+    const ustensilListTag = document.getElementById('ustensiles-ListTag');
+    while (ustensilListTag.firstChild) {
+      ustensilListTag.removeChild(ustensilListTag.firstChild);
+    }
+    newListUniqueUstensiles.forEach(ustensil => {
+      const buttonAppliance = document.createElement('button');
+      buttonAppliance.innerHTML = ustensil;
+      buttonAppliance.classList.add('mainHeader__tag');
+      ustensilListTag.appendChild(buttonAppliance);
+    });
+
+    // new listener on tag button
+    tagBtn = document.querySelectorAll('.mainHeader__tag');
+    addEventListenerToTags();
   }
 
   const secondarySearchBars = document.querySelectorAll('.mainHeader__search-bar input');
@@ -240,7 +287,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       const input = event.target.value.toLowerCase();
       const grandParentElement = event.target.parentElement.parentElement;
       const list = grandParentElement.querySelectorAll('.mainHeader__tag');
-      console.log(event.target.value);
       for (let i = 0; i < list.length; i++) {
         const txtValue = list[i].textContent;
         if (txtValue.toLowerCase().indexOf(input) > -1) {
