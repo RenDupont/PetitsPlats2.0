@@ -15,21 +15,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   const mainSearchBar = document.querySelector('.header__search-bar input');
   mainSearchBar.value = '';
 
-  // get list of all ingredient
-  const listIngredients = recipes.map((recipe) => recipe.ingredients.map((ingredient) => ingredient.ingredient)).flat();
-  const listUniqueIngredient = [...new Set(listIngredients)];
-  listUniqueIngredient.sort(function (a, b) {
-    return a.localeCompare(b);
-  });
-
-  // add ingredient list tag to html
-  listUniqueIngredient.forEach(ingredient => {
-    const listTag = document.getElementById('ingrédients-ListTag');
-    const buttonIngredient = document.createElement('button');
-    buttonIngredient.innerHTML = ingredient;
-    buttonIngredient.classList.add('mainHeader__tag');
-    listTag.appendChild(buttonIngredient);
-  });
+  // eslint-disable-next-line no-undef
+  const ingredients = new Ingredients(recipes);
+  ingredients.addIngredientTagtoHtml();
 
   // get list of all appliance
   const listAppliance = recipes.flatMap((recipe) => recipe.appliance);
@@ -90,7 +78,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   let tagBtn = document.querySelectorAll('.mainHeader__tag');
   const activetedBigTag = document.querySelector('.activetedTag');
   const activetedSmallTags = document.querySelectorAll('.mainHeader__activetedTags');
-  function addEventListenerToTags () {
+  function addEventListenerToTagBtn () {
     tagBtn.forEach(tag => {
       tag.addEventListener('click', function () {
         listTag.push(tag.textContent);
@@ -105,7 +93,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
     });
   }
-  addEventListenerToTags();
+  addEventListenerToTagBtn();
 
   function addTagToHtml (tag) {
     const BigTag = document.createElement('div');
@@ -169,10 +157,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // à refactorer
   activetedSmallTags.forEach(activetedSmallTag => {
-    activetedSmallTag.addEventListener('click', function (event) {
+    activetedSmallTag.addEventListener('click', async function (event) {
       if (event.target.matches('.mainHeader__tag i')) {
         const clickedTag = event.target.parentNode;
         const tagText = clickedTag.querySelector('span').textContent;
+        const recipe = await getRecipes();
 
         listTag = listTag.filter(tag => tag !== tagText);
 
@@ -180,7 +169,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const listBigTag = Array.from(activetedBigTag.children);
         listBigTag.forEach((BigTag) => {
-          if (BigTag.querySelector('span').textContent === tagText) {
+          if (BigTag.querySelector('span').value === tagText) {
             BigTag.remove();
           }
         });
@@ -189,31 +178,34 @@ document.addEventListener('DOMContentLoaded', async () => {
           const query = document.querySelector('.header__search-bar input').value.toLowerCase();
           if (query !== '' && searched) {
             // eslint-disable-next-line no-undef
-            const instanceSearch = searchTest(query, recipes);
+            const instanceSearch = searchTest(query, recipe);
             filteredList = instanceSearch.searchMainBar();
             clearAndAppendListCard(filteredList);
             uptdateFilterList(filteredList);
           } else {
-            filteredList = [...recipes];
+            filteredList = [...recipe];
             clearAndAppendListCard(filteredList);
             uptdateFilterList(filteredList);
           }
         } else {
-          newAdvancedSearch(listTag);
+          console.log(listTag);
+          newAdvancedSearch(listTag, recipe);
         }
       }
     });
   });
 
-  function newAdvancedSearch (list) {
-    filteredList = [...recipes];
+  function newAdvancedSearch (list, recipe) {
+    filteredList = [...recipe];
     list.forEach(tag => {
+      console.log(tag);
       // eslint-disable-next-line no-undef
       const instanceSearch = searchTest(tag.toLowerCase(), filteredList);
       filteredList = instanceSearch.advancedSearch();
       clearAndAppendListCard(filteredList);
-      uptdateFilterList(filteredList);
+      // uptdateFilterList(filteredList);
     });
+    console.log(filteredList);
   }
 
   function uptdateFilterList (list, tag = '') {
@@ -278,7 +270,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // new listener on tag button
     tagBtn = document.querySelectorAll('.mainHeader__tag');
-    addEventListenerToTags();
+    addEventListenerToTagBtn();
   }
 
   const secondarySearchBars = document.querySelectorAll('.mainHeader__search-bar input');
@@ -351,9 +343,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 /**
  * TODO
- *
+ * select et option / regarder attribut
  * regarder export module
- * implemente le fait que la liste de tag possible change en fonction des recettes restante
- * tester le template
- *
+ * corriger la suppression des tag dans les dropdown content
+ * continuer le responsive
+ * séparer les listes ingrédiants/ ustancile et appareils dans des fichier js
+ * 2nd version de search en boucle native
  */
