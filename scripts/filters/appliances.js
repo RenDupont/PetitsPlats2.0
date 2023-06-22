@@ -37,7 +37,7 @@ class Appliances {
     });
   }
 
-  updateAppliancefilters (activetedTags) {
+  updateApplianceFilters (activetedTags) {
     const listTag = document.getElementById('appliance-ListTag');
     const listFilter = listTag.querySelectorAll('button');
     listFilter.forEach(button => {

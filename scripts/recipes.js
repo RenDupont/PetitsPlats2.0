@@ -180,10 +180,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function uptdateFilterList (list) {
     ingredients.ingredientsList = list;
-    ingredients.updateIngredientfilters(listTag);
+    ingredients.updateIngredientFilters(listTag);
 
     appliances.appliancesList = list;
-    appliances.updateAppliancefilters(listTag);
+    appliances.updateApplianceFilters(listTag);
+
+    ustensils.ustensilsList = list;
+    ustensils.updateUstensilFilters(listTag);
   }
 
   const secondarySearchBars = document.querySelectorAll('.mainHeader__search-bar input');

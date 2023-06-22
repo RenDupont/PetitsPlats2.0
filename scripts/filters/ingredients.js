@@ -37,7 +37,7 @@ class Ingredients {
     });
   }
 
-  updateIngredientfilters (activetedTags) {
+  updateIngredientFilters (activetedTags) {
     const listTag = document.getElementById('ingrédients-ListTag');
     const listFilter = listTag.querySelectorAll('button');
     listFilter.forEach(button => {

@@ -16,7 +16,12 @@ class Ustensils {
 
   set ustensilsList (newList) {
     if (Array.isArray(newList)) {
-      this._list = newList;
+      const listUstensiles = newList.flatMap((recipe) => recipe.ustensils);
+      const listUniqueUstensiles = [...new Set(listUstensiles)];
+      listUniqueUstensiles.sort(function (a, b) {
+        return a.localeCompare(b);
+      });
+      this._list = listUniqueUstensiles;
     } else {
       console.log('pas un tableau');
     }
@@ -29,6 +34,19 @@ class Ustensils {
       buttonAppliance.innerHTML = ustensil;
       buttonAppliance.classList.add('mainHeader__tag');
       listTag.appendChild(buttonAppliance);
+    });
+  }
+
+  updateUstensilFilters (activetedTags) {
+    const listTag = document.getElementById('ustensiles-ListTag');
+    const listFilter = listTag.querySelectorAll('button');
+    listFilter.forEach(button => {
+      const ustensile = button.innerText;
+      if (!this._list.includes(ustensile) || activetedTags.includes(ustensile)) {
+        button.style.display = 'none';
+      } else {
+        button.style.display = '';
+      }
     });
   }
 }
