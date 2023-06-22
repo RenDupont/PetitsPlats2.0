@@ -19,37 +19,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   const ingredients = new Ingredients(recipes);
   ingredients.addIngredientTagtoHtml();
 
-  // get list of all appliance
-  const listAppliance = recipes.flatMap((recipe) => recipe.appliance);
-  const listUniqueAppliance = [...new Set(listAppliance)];
-  listUniqueAppliance.sort(function (a, b) {
-    return a.localeCompare(b);
-  });
+  // eslint-disable-next-line no-undef
+  const appliances = new Appliances(recipes);
+  appliances.addApplianceToHtml();
 
-  // add appliance list tag to html
-  listUniqueAppliance.forEach(appliance => {
-    const listTag = document.getElementById('appliance-ListTag');
-    const buttonAppliance = document.createElement('button');
-    buttonAppliance.innerHTML = appliance;
-    buttonAppliance.classList.add('mainHeader__tag');
-    listTag.appendChild(buttonAppliance);
-  });
-
-  // get list of all ustensiles
-  const listUstensiles = recipes.flatMap((recipe) => recipe.ustensils);
-  const listUniqueUstensiles = [...new Set(listUstensiles)];
-  listUniqueUstensiles.sort(function (a, b) {
-    return a.localeCompare(b);
-  });
-
-  // add ustensils list tag to html
-  listUniqueUstensiles.forEach(ustensil => {
-    const listTag = document.getElementById('ustensiles-ListTag');
-    const buttonAppliance = document.createElement('button');
-    buttonAppliance.innerHTML = ustensil;
-    buttonAppliance.classList.add('mainHeader__tag');
-    listTag.appendChild(buttonAppliance);
-  });
+  // eslint-disable-next-line no-undef
+  const ustensils = new Ustensils(recipes);
+  ustensils.addUstensilToHtml();
 
   // add recipe card
   recipes.forEach(recipe => {
@@ -75,25 +51,21 @@ document.addEventListener('DOMContentLoaded', async () => {
   let listTag = [];
 
   // event from filter botton
-  let tagBtn = document.querySelectorAll('.mainHeader__tag');
+  const tagBtn = document.querySelectorAll('.mainHeader__tag');
   const activetedBigTag = document.querySelector('.activetedTag');
   const activetedSmallTags = document.querySelectorAll('.mainHeader__activetedTags');
-  function addEventListenerToTagBtn () {
-    tagBtn.forEach(tag => {
-      tag.addEventListener('click', function () {
-        listTag.push(tag.textContent);
-        // eslint-disable-next-line no-undef
-        const instanceSearch = searchTest(tag.textContent.toLowerCase(), filteredList);
-        filteredList = instanceSearch.advancedSearch();
-        clearAndAppendListCard(filteredList);
+  tagBtn.forEach(tag => {
+    tag.addEventListener('click', function () {
+      listTag.push(tag.textContent);
+      // eslint-disable-next-line no-undef
+      const instanceSearch = searchTest(tag.textContent.toLowerCase(), filteredList);
+      filteredList = instanceSearch.advancedSearch();
+      clearAndAppendListCard(filteredList);
 
-        addTagToHtml(tag);
-        tag.remove();
-        uptdateFilterList(filteredList, tag.textContent);
-      });
+      addTagToHtml(tag);
+      uptdateFilterList(filteredList);
     });
-  }
-  addEventListenerToTagBtn();
+  });
 
   function addTagToHtml (tag) {
     const BigTag = document.createElement('div');
@@ -169,7 +141,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const listBigTag = Array.from(activetedBigTag.children);
         listBigTag.forEach((BigTag) => {
-          if (BigTag.querySelector('span').value === tagText) {
+          if (BigTag.querySelector('span').innerText === tagText) {
             BigTag.remove();
           }
         });
@@ -183,12 +155,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             clearAndAppendListCard(filteredList);
             uptdateFilterList(filteredList);
           } else {
-            filteredList = [...recipe];
+            filteredList = [...recipes];
             clearAndAppendListCard(filteredList);
             uptdateFilterList(filteredList);
           }
         } else {
-          console.log(listTag);
           newAdvancedSearch(listTag, recipe);
         }
       }
@@ -196,81 +167,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   function newAdvancedSearch (list, recipe) {
-    filteredList = [...recipe];
+    filteredList = [...recipes];
     list.forEach(tag => {
-      console.log(tag);
       // eslint-disable-next-line no-undef
       const instanceSearch = searchTest(tag.toLowerCase(), filteredList);
       filteredList = instanceSearch.advancedSearch();
       clearAndAppendListCard(filteredList);
-      // uptdateFilterList(filteredList);
+      uptdateFilterList(filteredList);
     });
     console.log(filteredList);
   }
 
-  function uptdateFilterList (list, tag = '') {
-    // new ingrediants
-    let newIngredientList = list.map((recipe) => recipe.ingredients.map((ingredient) => ingredient.ingredient)).flat();
-    newIngredientList = newIngredientList.filter(ingredient => ingredient !== tag);
-    const newListUniqueIngredient = [...new Set(newIngredientList)];
-    newListUniqueIngredient.sort(function (a, b) {
-      return a.localeCompare(b);
-    });
-
-    const ingrédientsListTag = document.getElementById('ingrédients-ListTag');
-    while (ingrédientsListTag.firstChild) {
-      ingrédientsListTag.removeChild(ingrédientsListTag.firstChild);
-    }
-
-    newListUniqueIngredient.forEach(ingredient => {
-      const buttonIngredient = document.createElement('button');
-      buttonIngredient.innerHTML = ingredient;
-      buttonIngredient.classList.add('mainHeader__tag');
-      ingrédientsListTag.appendChild(buttonIngredient);
-    });
-
-    // new appliances
-    let newListAppliance = list.flatMap((recipe) => recipe.appliance);
-    newListAppliance = newListAppliance.filter(appliance => appliance !== tag);
-    const newListUniqueAppliance = [...new Set(newListAppliance)];
-    newListUniqueAppliance.sort(function (a, b) {
-      return a.localeCompare(b);
-    });
-
-    const applianceListTag = document.getElementById('appliance-ListTag');
-    while (applianceListTag.firstChild) {
-      applianceListTag.removeChild(applianceListTag.firstChild);
-    }
-
-    newListUniqueAppliance.forEach(appliance => {
-      const buttonAppliance = document.createElement('button');
-      buttonAppliance.innerHTML = appliance;
-      buttonAppliance.classList.add('mainHeader__tag');
-      applianceListTag.appendChild(buttonAppliance);
-    });
-
-    // new ustensiles
-    let newListUstensiles = list.flatMap((recipe) => recipe.ustensils);
-    newListUstensiles = newListUstensiles.filter(ustensile => ustensile !== tag);
-    const newListUniqueUstensiles = [...new Set(newListUstensiles)];
-    newListUniqueUstensiles.sort(function (a, b) {
-      return a.localeCompare(b);
-    });
-
-    const ustensilListTag = document.getElementById('ustensiles-ListTag');
-    while (ustensilListTag.firstChild) {
-      ustensilListTag.removeChild(ustensilListTag.firstChild);
-    }
-    newListUniqueUstensiles.forEach(ustensil => {
-      const buttonAppliance = document.createElement('button');
-      buttonAppliance.innerHTML = ustensil;
-      buttonAppliance.classList.add('mainHeader__tag');
-      ustensilListTag.appendChild(buttonAppliance);
-    });
-
-    // new listener on tag button
-    tagBtn = document.querySelectorAll('.mainHeader__tag');
-    addEventListenerToTagBtn();
+  function uptdateFilterList (list) {
+    ingredients.ingredientsList = list;
+    ingredients.updateIngredientfilters(listTag);
   }
 
   const secondarySearchBars = document.querySelectorAll('.mainHeader__search-bar input');

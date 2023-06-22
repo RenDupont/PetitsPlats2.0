@@ -16,7 +16,12 @@ class Ingredients {
 
   set ingredientsList (newList) {
     if (Array.isArray(newList)) {
-      this._list = newList;
+      const listIngredients = newList.map((recipe) => recipe.ingredients.map((ingredient) => ingredient.ingredient)).flat();
+      const listUniqueIngredient = [...new Set(listIngredients)];
+      listUniqueIngredient.sort(function (a, b) {
+        return a.localeCompare(b);
+      });
+      this._list = listUniqueIngredient;
     } else {
       console.log('pas un tableau');
     }
@@ -29,6 +34,19 @@ class Ingredients {
       buttonIngredient.innerHTML = ingredient;
       buttonIngredient.classList.add('mainHeader__tag');
       listTag.appendChild(buttonIngredient);
+    });
+  }
+
+  updateIngredientfilters (activetedTags) {
+    const listTag = document.getElementById('ingrédients-ListTag');
+    const listFilter = listTag.querySelectorAll('button');
+    listFilter.forEach(button => {
+      const ingredient = button.innerText;
+      if (!this._list.includes(ingredient) || activetedTags.includes(ingredient)) {
+        button.style.display = 'none';
+      } else {
+        button.style.display = '';
+      }
     });
   }
 }
