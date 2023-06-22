@@ -16,7 +16,12 @@ class Appliances {
 
   set appliancesList (newList) {
     if (Array.isArray(newList)) {
-      this._list = newList;
+      const listAppliance = newList.flatMap((recipe) => recipe.appliance);
+      const listUniqueAppliance = [...new Set(listAppliance)];
+      listUniqueAppliance.sort(function (a, b) {
+        return a.localeCompare(b);
+      });
+      this._list = listUniqueAppliance;
     } else {
       console.log('pas un tableau');
     }
@@ -29,6 +34,19 @@ class Appliances {
       buttonAppliance.innerHTML = appliance;
       buttonAppliance.classList.add('mainHeader__tag');
       listTag.appendChild(buttonAppliance);
+    });
+  }
+
+  updateAppliancefilters (activetedTags) {
+    const listTag = document.getElementById('appliance-ListTag');
+    const listFilter = listTag.querySelectorAll('button');
+    listFilter.forEach(button => {
+      const appliance = button.innerText;
+      if (!this._list.includes(appliance) || activetedTags.includes(appliance)) {
+        button.style.display = 'none';
+      } else {
+        button.style.display = '';
+      }
     });
   }
 }
