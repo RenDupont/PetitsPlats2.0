@@ -2,7 +2,7 @@
 // eslint-disable-next-line no-unused-vars
 class Ingredients {
   constructor (data) {
-    const listIngredients = data.map((recipe) => recipe.ingredients.map((ingredient) => ingredient.ingredient)).flat();
+    const listIngredients = data.map((recipe) => recipe.ingredients.map((ingredient) => ingredient.ingredient.toLowerCase())).flat();
     const listUniqueIngredient = [...new Set(listIngredients)];
     listUniqueIngredient.sort(function (a, b) {
       return a.localeCompare(b);
@@ -16,7 +16,7 @@ class Ingredients {
 
   set ingredientsList (newList) {
     if (Array.isArray(newList)) {
-      const listIngredients = newList.map((recipe) => recipe.ingredients.map((ingredient) => ingredient.ingredient)).flat();
+      const listIngredients = newList.map((recipe) => recipe.ingredients.map((ingredient) => ingredient.ingredient.toLowerCase())).flat();
       const listUniqueIngredient = [...new Set(listIngredients)];
       listUniqueIngredient.sort(function (a, b) {
         return a.localeCompare(b);

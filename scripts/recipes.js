@@ -196,8 +196,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       const grandParentElement = event.target.parentElement.parentElement;
       const list = grandParentElement.querySelectorAll('.mainHeader__tag');
       for (let i = 0; i < list.length; i++) {
-        const txtValue = list[i].textContent;
-        if (txtValue.toLowerCase().indexOf(input) > -1) {
+        const txtValue = list[i].textContent.toLowerCase();
+        if (txtValue.startsWith(input) || txtValue.includes(' ' + input)) {
           list[i].style.display = '';
         } else {
           list[i].style.display = 'none';
@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', async () => {
  * TODO
  * select et option / regarder attribut
  * regarder export module
- * corriger la suppression des tag dans les dropdown content
+ *
  * continuer le responsive
  * séparer les listes ingrédiants/ ustancile et appareils dans des fichier js
  * 2nd version de search en boucle native
