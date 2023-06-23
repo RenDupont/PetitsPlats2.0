@@ -11,9 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const recipes = await getRecipes();
   const sectionRecipe = document.querySelector('.section-recipe');
   const searchBnt = document.querySelector('.header__search-bar button');
-
   const mainSearchBar = document.querySelector('.header__search-bar input');
-  mainSearchBar.value = '';
 
   // eslint-disable-next-line no-undef
   const ingredients = new Ingredients(recipes);
@@ -45,6 +43,19 @@ document.addEventListener('DOMContentLoaded', async () => {
       filteredList = instanceSearch.searchMainBar();
       clearAndAppendListCard(filteredList);
       searched = true;
+      console.log(searched);
+    }
+  });
+
+  mainSearchBar.addEventListener('input', function () {
+    const query = document.querySelector('.header__search-bar input').value.toLowerCase();
+    if (query === '' && searched) {
+      // eslint-disable-next-line no-undef
+      const instanceSearch = searchTest(query, recipes);
+      filteredList = instanceSearch.searchMainBar();
+      clearAndAppendListCard(filteredList);
+      searched = false;
+      console.log('yes');
     }
   });
 
@@ -259,10 +270,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 /**
  * TODO
- * select et option / regarder attribut
  * regarder export module
- *
+ * ajouter le message d'erreur quand une recherche avec la barre principale ne mène t'à rien
  * continuer le responsive
- * séparer les listes ingrédiants/ ustancile et appareils dans des fichier js
+ * séparer les listes ingrédiants/ ustancile et appareils dans des fichier js (continuer la refactorisation)
  * 2nd version de search en boucle native
  */
