@@ -59,12 +59,12 @@ main {
         width: 720px;
     }
     &__search-bar {
-        width: 954px;
+        width: 80%;
         height: 72px;
         position: relative;
-
+        max-width: 954px;
         input {
-            width: inherit;
+            width: 100%;
             height: inherit;
             border-radius: 11px;
             border: none;
@@ -254,7 +254,7 @@ main {
     display: flex;
     justify-content: flex-start;
     gap: 5%;
-    padding: 0 104px 0 104px;
+    padding: 0 5% 0 5%;
     margin-bottom: 60px;
     &__tag {
         width: 203px;
@@ -281,6 +281,7 @@ main {
     padding: 0 5% 0 5%;
     min-height: 800px;
     gap: 45px;
+    margin: auto;
     h3 {
         font-family: $font-family-title;
         font-weight: 400;
@@ -365,5 +366,8 @@ main {
             line-height: 19px;
             color: #7A7A7A;
         }
+    }
+    @media screen and (max-width: 1366px) {
+        justify-content: center;
     }
 }

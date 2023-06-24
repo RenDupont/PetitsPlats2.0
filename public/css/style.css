@@ -53,12 +53,13 @@ main {
   width: 720px;
 }
 .header__search-bar {
-  width: 954px;
+  width: 80%;
   height: 72px;
   position: relative;
+  max-width: 954px;
 }
 .header__search-bar input {
-  width: inherit;
+  width: 100%;
   height: inherit;
   border-radius: 11px;
   border: none;
@@ -231,7 +232,7 @@ main {
   display: flex;
   justify-content: flex-start;
   gap: 5%;
-  padding: 0 104px 0 104px;
+  padding: 0 5% 0 5%;
   margin-bottom: 60px;
 }
 .activetedTag__tag {
@@ -258,6 +259,7 @@ main {
   padding: 0 5% 0 5%;
   min-height: 800px;
   gap: 45px;
+  margin: auto;
 }
 .section-recipe h3 {
   font-family: "Anton";
@@ -343,6 +345,11 @@ main {
   font-size: 14px;
   line-height: 19px;
   color: #7A7A7A;
+}
+@media screen and (max-width: 1366px) {
+  .section-recipe {
+    justify-content: center;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
