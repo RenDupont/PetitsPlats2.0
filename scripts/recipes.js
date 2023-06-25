@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', async () => {
  * regarder export module
  * ajouter le message d'erreur quand une recherche avec la barre principale ne mène t'à rien
  * continuer le responsive
- * (mettre un breakpoint à 855px, mettre un wrap pour la liste des grand tag)
+ * (header et tag)
  * séparer les listes ingrédiants/ ustancile et appareils dans des fichier js (continuer la refactorisation)
  * 2nd version de search en boucle native
  */

@@ -214,18 +214,53 @@ main {
   border-radius: 0 0 11px 11px;
 }
 .mainHeader__listTag button {
+  height: auto;
   border: none;
   background-color: white;
   text-align: left;
   font-weight: 400;
   font-size: 14px;
   line-height: 35px;
-  height: 35px;
   padding-left: 16px;
   cursor: pointer;
 }
 .mainHeader__listTag button:hover {
   background-color: #FFD16B;
+}
+@media screen and (max-width: 855px) {
+  .mainHeader {
+    gap: 30px;
+    flex-direction: column-reverse;
+  }
+  .mainHeader__buttonList {
+    width: 100%;
+    gap: 5%;
+  }
+  .mainHeader__dropdown {
+    width: 30%;
+  }
+  .mainHeader__button {
+    width: 100%;
+  }
+  .mainHeader__dropdown-content {
+    width: 100%;
+  }
+  .mainHeader__search-bar input {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 525px) {
+  .mainHeader {
+    flex-direction: row;
+  }
+  .mainHeader__buttonList {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .mainHeader__dropdown {
+    width: 100%;
+    max-width: 195px;
+  }
 }
 
 .activetedTag {
@@ -349,6 +384,17 @@ main {
 @media screen and (max-width: 1366px) {
   .section-recipe {
     justify-content: center;
+  }
+}
+@media screen and (max-width: 400px) {
+  .section-recipe__card {
+    width: 100%;
+  }
+  .section-recipe__card img {
+    width: 100%;
+  }
+  .section-recipe__cardIngredients {
+    width: fit-content;
   }
 }
 

@@ -233,19 +233,50 @@ main {
         border-radius: 0 0 11px 11px;
         
         button {
+            height: auto;
             border: none;
             background-color: white;
             text-align: left;
             font-weight: 400;
             font-size: 14px;
             line-height: 35px;
-            height: 35px;
             padding-left: 16px;
             cursor: pointer;
         }
 
         button:hover {
             background-color: #FFD16B;
+        }
+    }
+    @media screen and (max-width: 855px) {
+        gap: 30px;
+        flex-direction: column-reverse;
+        &__buttonList {
+            width: 100%;
+            gap: 5%;
+        }
+        &__dropdown {
+            width: 30%;
+        }
+        &__button {
+            width: 100%;
+        }
+        &__dropdown-content {
+            width: 100%;
+        }
+        &__search-bar input {
+            width: 100%;
+        }
+    }
+    @media screen and (max-width: 525px) {
+        flex-direction: row;
+        &__buttonList {
+            flex-direction: column;
+            gap: 10px;
+        }
+        &__dropdown {
+            width: 100%;
+            max-width: 195px;
         }
     }
 }
@@ -370,4 +401,16 @@ main {
     @media screen and (max-width: 1366px) {
         justify-content: center;
     }
+    @media screen and (max-width: 400px) {
+        &__card {
+            width: 100%;
+            img {
+                width: 100%;
+            }
+        }
+        &__cardIngredients {
+            width: fit-content;
+        }
+    }
 }
+
