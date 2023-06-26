@@ -198,6 +198,7 @@ main {
         background: #FFD15B;
         padding-left: 16px;
         padding-right: 14px;
+        width: auto;
         span {
             font-weight: 400;
             font-size: 14px;
@@ -267,16 +268,23 @@ main {
         &__search-bar input {
             width: 100%;
         }
+        &__activetedTags {
+            width: auto;
+        }
     }
     @media screen and (max-width: 525px) {
         flex-direction: row;
+        gap: 4%;
         &__buttonList {
             flex-direction: column;
             gap: 10px;
         }
         &__dropdown {
-            width: 100%;
+            width: 195px;
             max-width: 195px;
+        }
+        &__tag {
+            width: auto;
         }
     }
 }
@@ -286,7 +294,8 @@ main {
     justify-content: flex-start;
     gap: 5%;
     padding: 0 5% 0 5%;
-    margin-bottom: 60px;
+    margin-bottom: 55px;
+    flex-wrap: wrap;
     &__tag {
         width: 203px;
         height: 53px;
@@ -299,9 +308,17 @@ main {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        margin-bottom: 5px;
+        min-width: 135px;
     }
     i:hover {
         cursor: pointer;
+    }
+    
+    @media screen and (max-width: 855px) {
+        &__tag {
+            width: 30%;
+        }
     }
 }
 

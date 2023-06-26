@@ -182,6 +182,7 @@ main {
   background: #FFD15B;
   padding-left: 16px;
   padding-right: 14px;
+  width: auto;
 }
 .mainHeader__tag span {
   font-weight: 400;
@@ -248,18 +249,25 @@ main {
   .mainHeader__search-bar input {
     width: 100%;
   }
+  .mainHeader__activetedTags {
+    width: auto;
+  }
 }
 @media screen and (max-width: 525px) {
   .mainHeader {
     flex-direction: row;
+    gap: 4%;
   }
   .mainHeader__buttonList {
     flex-direction: column;
     gap: 10px;
   }
   .mainHeader__dropdown {
-    width: 100%;
+    width: 195px;
     max-width: 195px;
+  }
+  .mainHeader__tag {
+    width: auto;
   }
 }
 
@@ -268,7 +276,8 @@ main {
   justify-content: flex-start;
   gap: 5%;
   padding: 0 5% 0 5%;
-  margin-bottom: 60px;
+  margin-bottom: 55px;
+  flex-wrap: wrap;
 }
 .activetedTag__tag {
   width: 203px;
@@ -282,9 +291,16 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 5px;
+  min-width: 135px;
 }
 .activetedTag i:hover {
   cursor: pointer;
+}
+@media screen and (max-width: 855px) {
+  .activetedTag__tag {
+    width: 30%;
+  }
 }
 
 .section-recipe {
