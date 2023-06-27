@@ -108,7 +108,12 @@ main {
             }
         }
     }
+    @media screen and (max-width: 1000px) {
+        background-size: cover;
+        background-position-x: center;
+    }
     @media screen and (max-width: 855px) {
+        background-position-x: 80%;
         h1 {
             width: 80%;
         }

@@ -100,7 +100,16 @@ main {
   font-size: 30px;
   color: white;
 }
+@media screen and (max-width: 1000px) {
+  .header {
+    background-size: cover;
+    background-position-x: center;
+  }
+}
 @media screen and (max-width: 855px) {
+  .header {
+    background-position-x: 80%;
+  }
   .header h1 {
     width: 80%;
   }
