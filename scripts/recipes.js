@@ -314,6 +314,5 @@ document.addEventListener('DOMContentLoaded', async () => {
  * TODO
  * 2nd version de search en boucle native
  * regarder export module
- * corriger les petit erreur vu
  * séparer les listes ingrédiants/ ustancile et appareils dans des fichier js (continuer la refactorisation)
  */

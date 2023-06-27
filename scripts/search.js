@@ -16,6 +16,33 @@ function searchTest (query, recipes) {
     return filteredList;
   }
 
+  /* function searchMainBar () {
+    const filteredList = [];
+
+    for (let i = 0; i < recipes.length; i++) {
+      const recipe = recipes[i];
+      const lowerCaseName = recipe.name.toLowerCase();
+      const lowerCaseDescription = recipe.description.toLowerCase();
+      let found = false;
+
+      if (lowerCaseName.includes(query) || lowerCaseDescription.includes(query)) {
+        found = true;
+      } else {
+        for (let j = 0; j < recipe.ingredients.length; j++) {
+          const ingredient = recipe.ingredients[j].ingredient.toLowerCase();
+          if (ingredient.includes(query)) {
+            found = true;
+            break;
+          }
+        }
+      }
+      if (found) {
+        filteredList.push(recipe);
+      }
+    }
+    return filteredList;
+  } */
+
   function advancedSearch () {
     filteredList = filteredList.filter(function (recipe) {
       return (
