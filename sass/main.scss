@@ -108,6 +108,11 @@ main {
             }
         }
     }
+    @media screen and (max-width: 855px) {
+        h1 {
+            width: 80%;
+        }
+    }
 }
 
 .mainHeader {
