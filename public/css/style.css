@@ -145,6 +145,15 @@ main {
   top: 20px;
   right: 25px;
 }
+.mainHeader__button i:last-child {
+  display: none;
+}
+.mainHeader__button:hover i:last-child {
+  display: block;
+}
+.mainHeader__button:hover i:first-child {
+  display: none;
+}
 .mainHeader__button:hover + .mainHeader__dropdown-content, .mainHeader__dropdown-content:hover {
   display: flex;
   flex-direction: column;
@@ -426,6 +435,13 @@ main {
   .section-recipe__cardIngredients {
     width: fit-content;
   }
+}
+
+#errorMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
 }
 
 /*# sourceMappingURL=style.css.map */

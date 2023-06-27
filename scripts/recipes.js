@@ -43,19 +43,34 @@ document.addEventListener('DOMContentLoaded', async () => {
       filteredList = instanceSearch.searchMainBar();
       clearAndAppendListCard(filteredList);
       searched = true;
-      console.log(searched);
+      uptdateFilterList(filteredList);
+      if (filteredList.length === 0) {
+        const errorMessage = document.getElementById('errorMessage');
+        errorMessage.innerText = `Aucune recette ne contient « ${query} » vous pouvez chercher «tarte aux pommes », « poisson », etc.`;
+      }
     }
   });
 
+  // corriger probleme vu
   mainSearchBar.addEventListener('input', function () {
     const query = document.querySelector('.header__search-bar input').value.toLowerCase();
-    if (query === '' && searched) {
-      // eslint-disable-next-line no-undef
-      const instanceSearch = searchTest(query, recipes);
-      filteredList = instanceSearch.searchMainBar();
-      clearAndAppendListCard(filteredList);
+    if (query.length < 3 && searched) {
+      const errorMessage = document.getElementById('errorMessage');
       searched = false;
-      console.log('yes');
+      errorMessage.innerText = '';
+      if (listTag.length !== 0) {
+        listTag.forEach(tag => {
+          // eslint-disable-next-line no-undef
+          const instanceSearch = searchTest(tag.toLowerCase(), recipes);
+          filteredList = instanceSearch.advancedSearch();
+          clearAndAppendListCard(filteredList);
+          uptdateFilterList(filteredList);
+        });
+      } else {
+        filteredList = [...recipes];
+        clearAndAppendListCard(filteredList);
+        uptdateFilterList(filteredList);
+      }
     }
   });
 
@@ -186,7 +201,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       clearAndAppendListCard(filteredList);
       uptdateFilterList(filteredList);
     });
-    console.log(filteredList);
   }
 
   function uptdateFilterList (list) {
@@ -240,10 +254,34 @@ document.addEventListener('DOMContentLoaded', async () => {
     recipeCount.textContent = newList.length + ' recettes';
   }
 
+  // Sélection des éléments nécessaires
   const inputField = document.querySelector('.header__search-bar input');
   const iconCross = document.querySelector('.header__search-bar span');
 
+  /* const dropdownContent = document.querySelector('.mainHeader__dropdown-content');
+  const button = document.querySelector('.mainHeader__button');
+  const iconFirst = button.querySelector('i:first-child');
+  const iconLast = button.querySelector('i:last-child');
+
+  dropdownContent.addEventListener('mouseover', function () {
+    iconFirst.style.display = 'none';
+    iconLast.style.display = 'block';
+  });
+
+  dropdownContent.addEventListener('mouseout', function () {
+    iconFirst.style.display = 'block';
+    iconLast.style.display = 'none';
+  }); */
+
   inputField.addEventListener('input', function () {
+    if (inputField.value !== '') {
+      iconCross.style.display = 'block'; // Affiche l'icône de croix
+    } else {
+      iconCross.style.display = 'none'; // Cache l'icône de croix
+    }
+  });
+
+  inputField.addEventListener('click', function () {
     if (inputField.value !== '') {
       iconCross.style.display = 'block'; // Affiche l'icône de croix
     } else {
@@ -261,19 +299,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         const instanceSearch = searchTest(tag.toLowerCase(), recipes);
         filteredList = instanceSearch.advancedSearch();
         clearAndAppendListCard(filteredList);
+        uptdateFilterList(filteredList);
       });
     } else {
       filteredList = [...recipes];
       clearAndAppendListCard(filteredList);
+      uptdateFilterList(filteredList);
     }
+    const errorMessage = document.getElementById('errorMessage');
+    errorMessage.innerText = '';
   });
 });
 /**
  * TODO
- * regarder export module
- * ajouter le message d'erreur quand une recherche avec la barre principale ne mène t'à rien
- * continuer le responsive
- * (header et tag)
- * séparer les listes ingrédiants/ ustancile et appareils dans des fichier js (continuer la refactorisation)
  * 2nd version de search en boucle native
+ * regarder export module
+ * corriger les petit erreur vu
+ * séparer les listes ingrédiants/ ustancile et appareils dans des fichier js (continuer la refactorisation)
  */

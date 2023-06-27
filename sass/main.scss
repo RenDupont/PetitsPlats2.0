@@ -149,6 +149,18 @@ main {
             top: 20px;
             right: 25px;
         }
+        i:last-child {
+            display: none;
+        }
+        &:hover {
+            i:last-child {
+                display: block;
+            }
+        
+            i:first-child {
+                display: none;
+            }
+        }
     }
 
     &__button:hover + &__dropdown-content,
@@ -439,5 +451,12 @@ main {
             width: fit-content;
         }
     }
+}
+
+#errorMessage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
 }
 

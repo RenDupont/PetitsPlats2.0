@@ -15,6 +15,7 @@ function searchTest (query, recipes) {
     });
     return filteredList;
   }
+
   function advancedSearch () {
     filteredList = filteredList.filter(function (recipe) {
       return (
