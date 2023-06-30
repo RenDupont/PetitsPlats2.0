@@ -51,7 +51,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
-  // corriger probleme vu
   mainSearchBar.addEventListener('input', function () {
     const query = document.querySelector('.header__search-bar input').value.toLowerCase();
     if (query.length < 3 && searched) {
@@ -118,10 +117,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // delete tag and search anew
   // a refactorer
-  activetedBigTag.addEventListener('click', function (event) {
+  activetedBigTag.addEventListener('click', async function (event) {
     if (event.target.matches('.activetedTag__tag i')) {
       const clickedTag = event.target.parentNode;
       const tagText = clickedTag.querySelector('span').textContent;
+      const recipe = await getRecipes();
 
       listTag = listTag.filter(tag => tag !== tagText);
 
@@ -138,17 +138,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         const query = document.querySelector('.header__search-bar input').value.toLowerCase();
         if (query !== '' && searched) {
           // eslint-disable-next-line no-undef
-          const instanceSearch = searchTest(query, recipes);
+          const instanceSearch = searchTest(query, recipe);
           filteredList = instanceSearch.searchMainBar();
           clearAndAppendListCard(filteredList);
           uptdateFilterList(filteredList);
         } else {
-          filteredList = [...recipes];
+          filteredList = [...recipe];
           clearAndAppendListCard(filteredList);
           uptdateFilterList(filteredList);
         }
       } else {
-        newAdvancedSearch(listTag);
+        newAdvancedSearch(listTag, recipe);
       }
     }
   });
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             clearAndAppendListCard(filteredList);
             uptdateFilterList(filteredList);
           } else {
-            filteredList = [...recipes];
+            filteredList = [...recipe];
             clearAndAppendListCard(filteredList);
             uptdateFilterList(filteredList);
           }
@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   function newAdvancedSearch (list, recipe) {
-    filteredList = [...recipes];
+    filteredList = recipe;
     list.forEach(tag => {
       // eslint-disable-next-line no-undef
       const instanceSearch = searchTest(tag.toLowerCase(), filteredList);
@@ -312,7 +312,5 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 /**
  * TODO
- * 2nd version de search en boucle native
- * regarder export module
- * séparer les listes ingrédiants/ ustancile et appareils dans des fichier js (continuer la refactorisation)
+ * add comments
  */

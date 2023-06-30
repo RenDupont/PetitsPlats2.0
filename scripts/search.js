@@ -4,15 +4,18 @@ function searchTest (query, recipes) {
   let filteredList = [...recipes];
 
   function searchMainBar () {
-    filteredList = filteredList.filter(function (recipe) {
-      return (
-        recipe.name.toLowerCase().includes(query) ||
-            recipe.ingredients.some(function (list) {
-              return list.ingredient.toLowerCase().includes(query);
-            }) ||
-            recipe.description.toLowerCase().includes(query)
-      );
-    });
+    const regex = /^[a-zA-Z]+$/;
+    if (regex.test(query)) {
+      filteredList = filteredList.filter(function (recipe) {
+        return (
+          recipe.name.toLowerCase().includes(query) ||
+              recipe.ingredients.some(function (list) {
+                return list.ingredient.toLowerCase().includes(query);
+              }) ||
+              recipe.description.toLowerCase().includes(query)
+        );
+      });
+    }
     return filteredList;
   }
 
