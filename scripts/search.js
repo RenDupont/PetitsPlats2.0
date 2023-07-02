@@ -1,6 +1,6 @@
 
 // eslint-disable-next-line no-unused-vars
-function searchTest (query, recipes) {
+function search (query, recipes) {
   let filteredList = [...recipes];
 
   function searchMainBar () {

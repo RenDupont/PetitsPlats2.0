@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const query = document.querySelector('.header__search-bar input').value.toLowerCase();
     if (query.length >= 3) {
       // eslint-disable-next-line no-undef
-      const instanceSearch = searchTest(query, filteredList);
+      const instanceSearch = search(query, filteredList);
       filteredList = instanceSearch.searchMainBar();
       clearAndAppendListCard(filteredList);
       searched = true;
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (listTag.length !== 0) {
         listTag.forEach(tag => {
           // eslint-disable-next-line no-undef
-          const instanceSearch = searchTest(tag.toLowerCase(), recipes);
+          const instanceSearch = search(tag.toLowerCase(), recipes);
           filteredList = instanceSearch.advancedSearch();
           clearAndAppendListCard(filteredList);
           uptdateFilterList(filteredList);
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     tag.addEventListener('click', function () {
       listTag.push(tag.textContent);
       // eslint-disable-next-line no-undef
-      const instanceSearch = searchTest(tag.textContent.toLowerCase(), filteredList);
+      const instanceSearch = search(tag.textContent.toLowerCase(), filteredList);
       filteredList = instanceSearch.advancedSearch();
       clearAndAppendListCard(filteredList);
 
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const query = document.querySelector('.header__search-bar input').value.toLowerCase();
         if (query !== '' && searched) {
           // eslint-disable-next-line no-undef
-          const instanceSearch = searchTest(query, recipe);
+          const instanceSearch = search(query, recipe);
           filteredList = instanceSearch.searchMainBar();
           clearAndAppendListCard(filteredList);
           uptdateFilterList(filteredList);
@@ -176,7 +176,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           const query = document.querySelector('.header__search-bar input').value.toLowerCase();
           if (query !== '' && searched) {
             // eslint-disable-next-line no-undef
-            const instanceSearch = searchTest(query, recipe);
+            const instanceSearch = search(query, recipe);
             filteredList = instanceSearch.searchMainBar();
             clearAndAppendListCard(filteredList);
             uptdateFilterList(filteredList);
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     filteredList = recipe;
     list.forEach(tag => {
       // eslint-disable-next-line no-undef
-      const instanceSearch = searchTest(tag.toLowerCase(), filteredList);
+      const instanceSearch = search(tag.toLowerCase(), filteredList);
       filteredList = instanceSearch.advancedSearch();
       clearAndAppendListCard(filteredList);
       uptdateFilterList(filteredList);
@@ -296,7 +296,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (listTag.length !== 0) {
       listTag.forEach(tag => {
         // eslint-disable-next-line no-undef
-        const instanceSearch = searchTest(tag.toLowerCase(), recipes);
+        const instanceSearch = search(tag.toLowerCase(), recipes);
         filteredList = instanceSearch.advancedSearch();
         clearAndAppendListCard(filteredList);
         uptdateFilterList(filteredList);
