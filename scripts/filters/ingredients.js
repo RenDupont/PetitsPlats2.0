@@ -1,4 +1,7 @@
 
+/**
+ * manage the ingredient filter list (creation, update, ect)
+ */
 // eslint-disable-next-line no-unused-vars
 class Ingredients {
   constructor (data) {

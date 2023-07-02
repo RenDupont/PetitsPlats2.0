@@ -1,4 +1,10 @@
 
+/**
+ * searching functions for main search bar and advanced filters
+ * @param {string} query
+ * @param {object} recipes
+ * @returns functions
+ */
 // eslint-disable-next-line no-unused-vars
 function search (query, recipes) {
   let filteredList = [...recipes];

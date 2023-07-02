@@ -1,4 +1,7 @@
 
+/**
+ * manage the appliance filter list (creation, update, ect)
+ */
 // eslint-disable-next-line no-unused-vars
 class Appliances {
   constructor (data) {

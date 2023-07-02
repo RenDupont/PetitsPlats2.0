@@ -1,4 +1,7 @@
 
+/**
+ * create recipe card
+ */
 // eslint-disable-next-line no-unused-vars
 class RecipesFactory {
   constructor (data) {

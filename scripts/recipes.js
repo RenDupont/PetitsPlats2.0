@@ -1,6 +1,10 @@
 
 let searched = false;
 
+/**
+ * get recipes from recipe.json
+ * @returns recipes
+ */
 async function getRecipes () {
   const response = await fetch('../data/recipe.json');
   const recipes = await response.json();
@@ -13,14 +17,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   const searchBnt = document.querySelector('.header__search-bar button');
   const mainSearchBar = document.querySelector('.header__search-bar input');
 
+  // create filters
   // eslint-disable-next-line no-undef
   const ingredients = new Ingredients(recipes);
   ingredients.addIngredientTagtoHtml();
-
   // eslint-disable-next-line no-undef
   const appliances = new Appliances(recipes);
   appliances.addApplianceToHtml();
-
   // eslint-disable-next-line no-undef
   const ustensils = new Ustensils(recipes);
   ustensils.addUstensilToHtml();
@@ -33,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     sectionRecipe.appendChild(card);
   });
 
-  // event from main search bar
+  // event when using main search bar
   searchBnt.addEventListener('click', function (event) {
     event.preventDefault();
     const query = document.querySelector('.header__search-bar input').value.toLowerCase();
@@ -51,6 +54,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
+  // event when delete querry from main search bar
   mainSearchBar.addEventListener('input', function () {
     const query = document.querySelector('.header__search-bar input').value.toLowerCase();
     if (query.length < 3 && searched) {
@@ -75,7 +79,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   let listTag = [];
 
-  // event from filter botton
+  // event for when you select a tag
   const tagBtn = document.querySelectorAll('.mainHeader__tag');
   const activetedBigTag = document.querySelector('.activetedTag');
   const activetedSmallTags = document.querySelectorAll('.mainHeader__activetedTags');
@@ -115,7 +119,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     filterActivetedTag.appendChild(smallTag);
   }
 
-  // delete tag and search anew
+  // event when delete bigTag (in activetedTag) and search anew
   // a refactorer
   activetedBigTag.addEventListener('click', async function (event) {
     if (event.target.matches('.activetedTag__tag i')) {
@@ -153,6 +157,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
+  // event when delete smallTag (in mainHeader__activetedTags) and search anew
   // à refactorer
   activetedSmallTags.forEach(activetedSmallTag => {
     activetedSmallTag.addEventListener('click', async function (event) {
@@ -192,8 +197,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
+  /**
+   * filter the recipe list with existing listTag
+   * @param {Array} list
+   * @param {Array} recipe
+   */
   function newAdvancedSearch (list, recipe) {
     filteredList = recipe;
+    console.log(filteredList);
     list.forEach(tag => {
       // eslint-disable-next-line no-undef
       const instanceSearch = search(tag.toLowerCase(), filteredList);
@@ -203,6 +214,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
+  /**
+   * update all filters list
+   * @param {Array} list
+   */
   function uptdateFilterList (list) {
     ingredients.ingredientsList = list;
     ingredients.updateIngredientFilters(listTag);
@@ -214,6 +229,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     ustensils.updateUstensilFilters(listTag);
   }
 
+  // event for searching a specific filter in mainHeader__search-bar
   const secondarySearchBars = document.querySelectorAll('.mainHeader__search-bar input');
   secondarySearchBars.forEach(searchBar => {
     searchBar.addEventListener('keyup', function (event) {
@@ -312,5 +328,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 /**
  * TODO
- * add comments
+ * modify regex
+ * create abstract class for filter
+ * try get rid of comments disabling eslint warning
  */
