@@ -219,14 +219,14 @@ document.addEventListener('DOMContentLoaded', async () => {
    * @param {Array} list
    */
   function uptdateFilterList (list) {
-    ingredients.ingredientsList = list;
-    ingredients.updateIngredientFilters(listTag);
+    ingredients.list = list;
+    ingredients.updateFilters(listTag);
 
-    appliances.appliancesList = list;
-    appliances.updateApplianceFilters(listTag);
+    appliances.list = list;
+    appliances.updateFilters(listTag);
 
-    ustensils.ustensilsList = list;
-    ustensils.updateUstensilFilters(listTag);
+    ustensils.list = list;
+    ustensils.updateFilters(listTag);
   }
 
   // event for searching a specific filter in mainHeader__search-bar

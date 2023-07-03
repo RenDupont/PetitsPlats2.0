@@ -13,7 +13,7 @@ class Filters {
   set list (newList) {
     if (Array.isArray(newList)) {
       this._list = newList;
-      this.updateListHtml();
+      this.addToListTag();
     } else {
       console.log('pas un tableau');
     }
