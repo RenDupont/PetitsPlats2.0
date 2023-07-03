@@ -13,4 +13,16 @@ class Ustensils extends Filters {
     });
     this._list = listUniqueUstensiles;
   }
+
+  // eslint-disable-next-line accessor-pairs
+  set list (newList) {
+    if (Array.isArray(newList)) {
+      const listUstensiles = newList.flatMap((recipe) => recipe.ustensils);
+      const listUniqueUstensiles = [...new Set(listUstensiles)];
+      listUniqueUstensiles.sort((a, b) => a.localeCompare(b));
+      this._list = listUniqueUstensiles;
+    } else {
+      console.log('pas un tableau');
+    }
+  }
 }

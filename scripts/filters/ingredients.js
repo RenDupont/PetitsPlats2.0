@@ -12,4 +12,16 @@ class Ingredients extends Filters {
     });
     this._list = listUniqueIngredient;
   }
+
+  // eslint-disable-next-line accessor-pairs
+  set list (newList) {
+    if (Array.isArray(newList)) {
+      const listIngredients = newList.map((recipe) => recipe.ingredients.map((ingredient) => ingredient.ingredient.toLowerCase())).flat();
+      const listUniqueIngredient = [...new Set(listIngredients)];
+      listUniqueIngredient.sort((a, b) => a.localeCompare(b));
+      this._list = listUniqueIngredient;
+    } else {
+      console.log('pas un tableau');
+    }
+  }
 }

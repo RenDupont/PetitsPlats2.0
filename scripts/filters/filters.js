@@ -11,12 +11,6 @@ class Filters {
   }
 
   set list (newList) {
-    if (Array.isArray(newList)) {
-      this._list = newList;
-      this.addToListTag();
-    } else {
-      console.log('pas un tableau');
-    }
   }
 
   addToListTag () {
