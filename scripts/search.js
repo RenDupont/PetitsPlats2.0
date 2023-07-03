@@ -10,7 +10,7 @@ function search (query, recipes) {
   let filteredList = [...recipes];
 
   function searchMainBar () {
-    const regex = /^[a-zA-Z]+$/;
+    const regex = /^[a-zA-Z\s]+$/;
     if (regex.test(query)) {
       filteredList = filteredList.filter(function (recipe) {
         return (

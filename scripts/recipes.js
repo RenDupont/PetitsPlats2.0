@@ -20,13 +20,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   // create filters
   // eslint-disable-next-line no-undef
   const ingredients = new Ingredients(recipes);
-  ingredients.addIngredientTagtoHtml();
+  ingredients.addToListTag();
   // eslint-disable-next-line no-undef
   const appliances = new Appliances(recipes);
-  appliances.addApplianceToHtml();
+  appliances.addToListTag();
   // eslint-disable-next-line no-undef
   const ustensils = new Ustensils(recipes);
-  ustensils.addUstensilToHtml();
+  ustensils.addToListTag();
 
   // add recipe card
   recipes.forEach(recipe => {
@@ -328,7 +328,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 /**
  * TODO
- * modify regex
  * create abstract class for filter
  * try get rid of comments disabling eslint warning
  */
