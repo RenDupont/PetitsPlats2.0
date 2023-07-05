@@ -1,3 +1,74 @@
-.test {
+
+$font-family-title : 'Anton'; 
+
+
+body {
+    font-family: 'Manrope';
+    font-style: normal;
     margin: auto;
+    max-width: 1440px;
+}
+
+.header {
+    height: 667px;
+    position: relative;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../../assets/lampos-aritonang-24gR_9lCdes-unsplash-scaled.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__logo {
+        position: absolute;
+        top: 51px;
+        left: 69px;
+        color: white;
+        font-family: $font-family-title;
+        font-size: 25px;
+    }
+
+    h1 {
+        color: #FFD15B;
+        font-family: $font-family-title;
+        font-weight: 400;
+        line-height: 66px;
+        font-size: 44px;
+        text-align: center;
+        width: 980px;
+    }
+    &__search-bar {
+        width: 954px;
+        height: 72px;
+        position: relative;
+
+        input {
+            width: inherit;
+            height: inherit;
+            border-radius: 11px;
+            border: none;
+            padding: 12px 35px;
+            box-sizing: border-box;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 22px;
+        }
+        
+        button {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: #1B1B1B;
+            border-radius: 10px;
+            width: 51px;
+            height: 52px;
+            border: none;
+
+            i {
+                font-size: 30px;
+                color: white;
+            }
+        }
+    }
 }
