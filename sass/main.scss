@@ -152,14 +152,8 @@ main {
         i:last-child {
             display: none;
         }
-        &:hover {
-            i:last-child {
-                display: block;
-            }
-        
-            i:first-child {
-                display: none;
-            }
+        i:first-child {
+            display: block;
         }
     }
 

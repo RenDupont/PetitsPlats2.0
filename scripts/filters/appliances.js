@@ -1,11 +1,11 @@
 
 /**
- * manage the appliance filter list (creation, update, ect)
+ * appliance filter list
  */
 // eslint-disable-next-line no-unused-vars
 class Appliances extends Filters {
   constructor (data) {
-    super(data, 'appliance-ListTag');
+    super('appliance-ListTag');
     const listAppliance = data.flatMap((recipe) => recipe.appliance);
     const listUniqueAppliance = [...new Set(listAppliance)];
     listUniqueAppliance.sort(function (a, b) {

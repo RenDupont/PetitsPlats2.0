@@ -1,11 +1,11 @@
 
 /**
- * manage the ustensil filter list (creation, update, ect)
+ * ustensil filter list
  */
 // eslint-disable-next-line no-unused-vars
 class Ustensils extends Filters {
   constructor (data) {
-    super(data, 'appliance-ListTag');
+    super('ustensiles-ListTag');
     const listUstensiles = data.flatMap((recipe) => recipe.ustensils);
     const listUniqueUstensiles = [...new Set(listUstensiles)];
     listUniqueUstensiles.sort(function (a, b) {

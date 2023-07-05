@@ -148,11 +148,8 @@ main {
 .mainHeader__button i:last-child {
   display: none;
 }
-.mainHeader__button:hover i:last-child {
+.mainHeader__button i:first-child {
   display: block;
-}
-.mainHeader__button:hover i:first-child {
-  display: none;
 }
 .mainHeader__button:hover + .mainHeader__dropdown-content, .mainHeader__dropdown-content:hover {
   display: flex;

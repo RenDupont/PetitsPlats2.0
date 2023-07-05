@@ -1,7 +1,13 @@
 
+/**
+ * manage filter lists (creation, update, ect)
+ */
 // eslint-disable-next-line no-unused-vars
 class Filters {
-  constructor (data, elementId) {
+  constructor (elementId) {
+    if (this.constructor === Filters) {
+      throw new TypeError('Abstract class "Filters" cannot be instantiated directly');
+    }
     this._list = [];
     this._elementId = elementId;
   }

@@ -92,6 +92,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
+  /**
+   * add tag to html when a tag is selected
+   * @param {HTMLElement} tag
+   */
   function addTagToHtml (tag) {
     const BigTag = document.createElement('div');
     BigTag.classList.add('activetedTag__tag');
@@ -116,7 +120,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // event when delete bigTag (in activetedTag) and search anew
-  // a refactorer
   activetedBigTag.addEventListener('click', async function (event) {
     if (event.target.matches('.activetedTag__tag i')) {
       const clickedTag = event.target.parentNode;
@@ -153,7 +156,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // event when delete smallTag (in mainHeader__activetedTags) and search anew
-  // à refactorer
   activetedSmallTags.forEach(activetedSmallTag => {
     activetedSmallTag.addEventListener('click', async function (event) {
       if (event.target.matches('.mainHeader__tag i')) {
@@ -265,22 +267,49 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Sélection des éléments nécessaires
   const inputField = document.querySelector('.header__search-bar input');
   const iconCross = document.querySelector('.header__search-bar span');
+  const buttonFilters = document.querySelectorAll('.mainHeader__button');
+  const dropdownContent = document.querySelectorAll('.mainHeader__dropdown-content');
 
-  /* const dropdownContent = document.querySelector('.mainHeader__dropdown-content');
-  const button = document.querySelector('.mainHeader__button');
-  const iconFirst = button.querySelector('i:first-child');
-  const iconLast = button.querySelector('i:last-child');
-
-  dropdownContent.addEventListener('mouseover', function () {
-    iconFirst.style.display = 'none';
-    iconLast.style.display = 'block';
+  // change icon on mouseover or mouseout
+  buttonFilters.forEach(btn => {
+    const iconChevronUp = btn.querySelector('.fa-chevron-up');
+    const iconChevronDown = btn.querySelector('.fa-chevron-down');
+    btn.addEventListener('mouseover', function () {
+      iconChevronUp.style.display = 'block';
+      iconChevronDown.style.display = 'none';
+    });
   });
 
-  dropdownContent.addEventListener('mouseout', function () {
-    iconFirst.style.display = 'block';
-    iconLast.style.display = 'none';
-  }); */
+  buttonFilters.forEach(btn => {
+    const iconChevronUp = btn.querySelector('.fa-chevron-up');
+    const iconChevronDown = btn.querySelector('.fa-chevron-down');
+    btn.addEventListener('mouseout', function () {
+      iconChevronUp.style.display = 'none';
+      iconChevronDown.style.display = 'block';
+    });
+  });
 
+  dropdownContent.forEach(element => {
+    const elementParent = element.parentElement;
+    const iconChevronUp = elementParent.querySelector('.fa-chevron-up');
+    const iconChevronDown = elementParent.querySelector('.fa-chevron-down');
+    element.addEventListener('mouseover', function () {
+      iconChevronUp.style.display = 'block';
+      iconChevronDown.style.display = 'none';
+    });
+  });
+
+  dropdownContent.forEach(element => {
+    const elementParent = element.parentElement;
+    const iconChevronUp = elementParent.querySelector('.fa-chevron-up');
+    const iconChevronDown = elementParent.querySelector('.fa-chevron-down');
+    element.addEventListener('mouseout', function () {
+      iconChevronUp.style.display = 'none';
+      iconChevronDown.style.display = 'block';
+    });
+  });
+
+  // diplay cross icon in main search bar when input not empty
   inputField.addEventListener('input', function () {
     if (inputField.value !== '') {
       iconCross.style.display = 'block'; // Affiche l'icône de croix
@@ -297,6 +326,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 
+  // reset main search when cross icon is clicked
   iconCross.addEventListener('click', function () {
     inputField.value = '';
     iconCross.style.display = 'none';
