@@ -382,7 +382,6 @@ main {
 }
 .section-recipe__cardRecette {
   max-height: 125px;
-  text-overflow: "";
   overflow: hidden;
 }
 .section-recipe__cardRecette p {
