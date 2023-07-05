@@ -9,12 +9,16 @@ body {
     max-width: 1440px;
 }
 
+main {
+    background-color: #EDEDED;
+}
+
 .header {
     height: 667px;
     position: relative;
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../../assets/lampos-aritonang-24gR_9lCdes-unsplash-scaled.jpg");
-    background-size: cover;
-    background-position: center;
+    background-size: 100%;
+    background-position-y: 80%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -27,6 +31,21 @@ body {
         color: white;
         font-family: $font-family-title;
         font-size: 25px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        i {
+            position: relative;
+            font-size: 20px;
+            i {
+                position: absolute;
+                right: 2.6px;
+                top: 2.9px;
+                font-size: 15px;
+                color: black;
+            }
+        }
     }
 
     h1 {
@@ -36,7 +55,7 @@ body {
         line-height: 66px;
         font-size: 44px;
         text-align: center;
-        width: 980px;
+        width: 720px;
     }
     &__search-bar {
         width: 954px;
@@ -69,6 +88,122 @@ body {
                 font-size: 30px;
                 color: white;
             }
+        }
+    }
+}
+
+.mainHeader {
+    padding: 30px 104px 55px 104px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__buttonList {
+        width: 717px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__button {
+        position: relative;
+        width: 195px;
+        height: 56px;
+        border: none;
+        border-radius: 11px;
+        background-color: white;
+        text-align: left;
+        padding-left: 16px;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 22px;
+
+        i {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+        }
+    }
+
+    span {
+        font-family: $font-family-title;
+        font-weight: 400;
+        font-size: 21px;
+        line-height: 32px;
+    }
+}
+
+.section-recipe {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0 104px 0 104px;
+    h3 {
+        font-family: $font-family-title;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 27px;
+    }
+    h4 {
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 16px;
+        letter-spacing: 0.09em;
+        color: #7A7A7A;
+    }
+    &__card {
+        width: 380px;
+        height: 731px;
+        min-height: 731px;
+        background-color: white;
+        box-shadow: 0px 4px 34px 30px rgba(0, 0, 0, 0.04);
+        border-radius: 21px;
+        margin-bottom: 68px;
+        img {
+            width: 380px;
+            height: 253px;
+            object-fit: cover;
+            border-radius: 21px 21px 0 0;
+        }
+    }
+    &__cardContent {
+        padding: 0 25px 0 25px;
+    }
+    &__cardRecette {
+        max-height: 125px;
+        text-overflow: "";
+        overflow: hidden;
+        p {
+            max-height: 76px;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+        }
+    }
+    &__cardListIngredients {
+        width: 330px;
+        height: 190px;
+    }
+    &__cardIngredients {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-content: space-between;
+        height: 232px;
+    }
+    &__cardIngredient {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        span:first-child {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 19px;
+        }
+        span:last-child {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            color: #7A7A7A;
         }
     }
 }

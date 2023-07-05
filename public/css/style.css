@@ -5,12 +5,16 @@ body {
   max-width: 1440px;
 }
 
+main {
+  background-color: #EDEDED;
+}
+
 .header {
   height: 667px;
   position: relative;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../../assets/lampos-aritonang-24gR_9lCdes-unsplash-scaled.jpg");
-  background-size: cover;
-  background-position: center;
+  background-size: 100%;
+  background-position-y: 80%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,6 +27,20 @@ body {
   color: white;
   font-family: "Anton";
   font-size: 25px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.header__logo i {
+  position: relative;
+  font-size: 20px;
+}
+.header__logo i i {
+  position: absolute;
+  right: 2.6px;
+  top: 2.9px;
+  font-size: 15px;
+  color: black;
 }
 .header h1 {
   color: #FFD15B;
@@ -31,7 +49,7 @@ body {
   line-height: 66px;
   font-size: 44px;
   text-align: center;
-  width: 980px;
+  width: 720px;
 }
 .header__search-bar {
   width: 954px;
@@ -62,6 +80,118 @@ body {
 .header__search-bar button i {
   font-size: 30px;
   color: white;
+}
+
+.mainHeader {
+  padding: 30px 104px 55px 104px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.mainHeader__buttonList {
+  width: 717px;
+  display: flex;
+  justify-content: space-between;
+}
+.mainHeader__button {
+  position: relative;
+  width: 195px;
+  height: 56px;
+  border: none;
+  border-radius: 11px;
+  background-color: white;
+  text-align: left;
+  padding-left: 16px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 22px;
+}
+.mainHeader__button i {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+}
+.mainHeader span {
+  font-family: "Anton";
+  font-weight: 400;
+  font-size: 21px;
+  line-height: 32px;
+}
+
+.section-recipe {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0 104px 0 104px;
+}
+.section-recipe h3 {
+  font-family: "Anton";
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+}
+.section-recipe h4 {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.09em;
+  color: #7A7A7A;
+}
+.section-recipe__card {
+  width: 380px;
+  height: 731px;
+  min-height: 731px;
+  background-color: white;
+  box-shadow: 0px 4px 34px 30px rgba(0, 0, 0, 0.04);
+  border-radius: 21px;
+  margin-bottom: 68px;
+}
+.section-recipe__card img {
+  width: 380px;
+  height: 253px;
+  object-fit: cover;
+  border-radius: 21px 21px 0 0;
+}
+.section-recipe__cardContent {
+  padding: 0 25px 0 25px;
+}
+.section-recipe__cardRecette {
+  max-height: 125px;
+  text-overflow: "";
+  overflow: hidden;
+}
+.section-recipe__cardRecette p {
+  max-height: 76px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+}
+.section-recipe__cardListIngredients {
+  width: 330px;
+  height: 190px;
+}
+.section-recipe__cardIngredients {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: space-between;
+  height: 232px;
+}
+.section-recipe__cardIngredient {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.section-recipe__cardIngredient span:first-child {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+}
+.section-recipe__cardIngredient span:last-child {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  color: #7A7A7A;
 }
 
 /*# sourceMappingURL=style.css.map */
