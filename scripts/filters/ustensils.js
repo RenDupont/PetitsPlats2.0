@@ -2,7 +2,7 @@
 /**
  * manage the ustensil filter list (creation, update, ect)
  */
-// eslint-disable-next-line no-unused-vars, no-undef
+// eslint-disable-next-line no-unused-vars
 class Ustensils extends Filters {
   constructor (data) {
     super(data, 'appliance-ListTag');

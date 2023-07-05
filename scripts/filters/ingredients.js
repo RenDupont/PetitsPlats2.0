@@ -1,7 +1,7 @@
 /**
  * ingredient filter list
  */
-// eslint-disable-next-line no-undef, no-unused-vars
+// eslint-disable-next-line no-unused-vars
 class Ingredients extends Filters {
   constructor (data) {
     super(data, 'ingrédients-ListTag');

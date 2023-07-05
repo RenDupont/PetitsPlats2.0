@@ -18,19 +18,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   const mainSearchBar = document.querySelector('.header__search-bar input');
 
   // create filters
-  // eslint-disable-next-line no-undef
   const ingredients = new Ingredients(recipes);
   ingredients.addToListTag();
-  // eslint-disable-next-line no-undef
+
   const appliances = new Appliances(recipes);
   appliances.addToListTag();
-  // eslint-disable-next-line no-undef
+
   const ustensils = new Ustensils(recipes);
   ustensils.addToListTag();
 
   // add recipe card
   recipes.forEach(recipe => {
-    // eslint-disable-next-line no-undef
     const newRecipe = new RecipesFactory(recipe);
     const card = newRecipe.createRecipeCard();
     sectionRecipe.appendChild(card);
@@ -41,7 +39,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     event.preventDefault();
     const query = document.querySelector('.header__search-bar input').value.toLowerCase();
     if (query.length >= 3) {
-      // eslint-disable-next-line no-undef
       const instanceSearch = search(query, filteredList);
       filteredList = instanceSearch.searchMainBar();
       clearAndAppendListCard(filteredList);
@@ -63,7 +60,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       errorMessage.innerText = '';
       if (listTag.length !== 0) {
         listTag.forEach(tag => {
-          // eslint-disable-next-line no-undef
           const instanceSearch = search(tag.toLowerCase(), recipes);
           filteredList = instanceSearch.advancedSearch();
           clearAndAppendListCard(filteredList);
@@ -86,7 +82,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   tagBtn.forEach(tag => {
     tag.addEventListener('click', function () {
       listTag.push(tag.textContent);
-      // eslint-disable-next-line no-undef
+
       const instanceSearch = search(tag.textContent.toLowerCase(), filteredList);
       filteredList = instanceSearch.advancedSearch();
       clearAndAppendListCard(filteredList);
@@ -141,7 +137,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (listTag.length === 0) {
         const query = document.querySelector('.header__search-bar input').value.toLowerCase();
         if (query !== '' && searched) {
-          // eslint-disable-next-line no-undef
           const instanceSearch = search(query, recipe);
           filteredList = instanceSearch.searchMainBar();
           clearAndAppendListCard(filteredList);
@@ -180,7 +175,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (listTag.length === 0) {
           const query = document.querySelector('.header__search-bar input').value.toLowerCase();
           if (query !== '' && searched) {
-            // eslint-disable-next-line no-undef
             const instanceSearch = search(query, recipe);
             filteredList = instanceSearch.searchMainBar();
             clearAndAppendListCard(filteredList);
@@ -206,7 +200,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     filteredList = recipe;
     console.log(filteredList);
     list.forEach(tag => {
-      // eslint-disable-next-line no-undef
       const instanceSearch = search(tag.toLowerCase(), filteredList);
       filteredList = instanceSearch.advancedSearch();
       clearAndAppendListCard(filteredList);
@@ -261,7 +254,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     newList.forEach(recipe => {
-    // eslint-disable-next-line no-undef
       const newRecipeList = new RecipesFactory(recipe);
       const card = newRecipeList.createRecipeCard();
       sectionRecipe.appendChild(card);
@@ -311,7 +303,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     searched = false;
     if (listTag.length !== 0) {
       listTag.forEach(tag => {
-        // eslint-disable-next-line no-undef
         const instanceSearch = search(tag.toLowerCase(), recipes);
         filteredList = instanceSearch.advancedSearch();
         clearAndAppendListCard(filteredList);
@@ -326,8 +317,3 @@ document.addEventListener('DOMContentLoaded', async () => {
     errorMessage.innerText = '';
   });
 });
-/**
- * TODO
- * create abstract class for filter
- * try get rid of comments disabling eslint warning
- */

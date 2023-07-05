@@ -2,7 +2,7 @@
 /**
  * manage the appliance filter list (creation, update, ect)
  */
-// eslint-disable-next-line no-unused-vars, no-undef
+// eslint-disable-next-line no-unused-vars
 class Appliances extends Filters {
   constructor (data) {
     super(data, 'appliance-ListTag');
