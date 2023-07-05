@@ -1,4 +1,7 @@
 
+/**
+ * create recipe card
+ */
 // eslint-disable-next-line no-unused-vars
 class RecipesFactory {
   constructor (data) {
@@ -19,6 +22,9 @@ class RecipesFactory {
 
     const recipeCard = `
           <img src="./assets/Photos P7 JS Les petits plats/${this._data.image}" alt="${this._data.name}">
+          <div class="section-recipe__time">
+            <span>${this._data.time}min</span>
+          </div>
           <div class="section-recipe__cardContent">
             <h3>${this._data.name}</h3>
             <div class="section-recipe__cardRecette">

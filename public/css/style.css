@@ -19,6 +19,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-repeat: no-repeat;
 }
 .header__logo {
   position: absolute;
@@ -52,12 +53,13 @@ main {
   width: 720px;
 }
 .header__search-bar {
-  width: 954px;
+  width: 80%;
   height: 72px;
   position: relative;
+  max-width: 954px;
 }
 .header__search-bar input {
-  width: inherit;
+  width: 100%;
   height: inherit;
   border-radius: 11px;
   border: none;
@@ -66,6 +68,16 @@ main {
   font-weight: 400;
   font-size: 16px;
   line-height: 22px;
+  color: #7A7A7A;
+}
+.header__search-bar span {
+  display: none;
+  position: absolute;
+  top: 27px;
+  right: 80px;
+  font-size: 20px;
+  color: #7A7A7A;
+  cursor: pointer;
 }
 .header__search-bar button {
   position: absolute;
@@ -76,17 +88,39 @@ main {
   width: 51px;
   height: 52px;
   border: none;
+  cursor: pointer;
+}
+.header__search-bar button:hover {
+  background: #FFD15B;
+}
+.header__search-bar button:hover i {
+  color: black;
 }
 .header__search-bar button i {
   font-size: 30px;
   color: white;
 }
+@media screen and (max-width: 1000px) {
+  .header {
+    background-size: cover;
+    background-position-x: center;
+  }
+}
+@media screen and (max-width: 855px) {
+  .header {
+    background-position-x: 80%;
+  }
+  .header h1 {
+    width: 80%;
+  }
+}
 
 .mainHeader {
-  padding: 30px 104px 55px 104px;
+  padding: 30px 5% 55px 5%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 5%;
 }
 .mainHeader__buttonList {
   width: 717px;
@@ -111,19 +145,192 @@ main {
   top: 20px;
   right: 25px;
 }
-.mainHeader span {
+.mainHeader__button i:last-child {
+  display: none;
+}
+.mainHeader__button i:first-child {
+  display: block;
+}
+.mainHeader__button:hover + .mainHeader__dropdown-content, .mainHeader__dropdown-content:hover {
+  display: flex;
+  flex-direction: column;
+}
+.mainHeader__dropdown {
+  position: relative;
+}
+.mainHeader__dropdown-content {
+  display: none;
+  width: 195px;
+  height: 315px;
+  position: absolute;
+  background-color: white;
+  top: 47px;
+  border-radius: 0 0 11px 11px;
+  z-index: 1;
+}
+.mainHeader__search-bar {
+  position: relative;
+  margin: 5px 16px;
+}
+.mainHeader__search-bar input {
+  box-sizing: border-box;
+  width: 163px;
+  height: 36px;
+  border: 1px solid #C6C6C6;
+  border-radius: 2px;
+  color: #7A7A7A;
+  padding: 12px 10px;
+}
+.mainHeader__search-bar i {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #7A7A7A;
+}
+.mainHeader__activetedTags {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 195px;
+  gap: 1px;
+}
+.mainHeader__tag {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 37px;
+  background: #FFD15B;
+  padding-left: 16px;
+  padding-right: 14px;
+  width: auto;
+}
+.mainHeader__tag span {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+}
+.mainHeader__tag:hover span {
+  font-weight: 700;
+}
+.mainHeader__tag i {
+  display: none;
+  cursor: pointer;
+}
+.mainHeader__tag:hover i {
+  display: block;
+}
+.mainHeader__recipeCount {
   font-family: "Anton";
   font-weight: 400;
   font-size: 21px;
   line-height: 32px;
+  white-space: nowrap;
+}
+.mainHeader__listTag {
+  display: flex;
+  flex-direction: column;
+  margin-top: 13px;
+  text-overflow: clip;
+  overflow: scroll;
+  border-radius: 0 0 11px 11px;
+}
+.mainHeader__listTag button {
+  height: auto;
+  border: none;
+  background-color: white;
+  text-align: left;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 35px;
+  padding-left: 16px;
+  cursor: pointer;
+}
+.mainHeader__listTag button:hover {
+  background-color: #FFD16B;
+}
+@media screen and (max-width: 855px) {
+  .mainHeader {
+    gap: 30px;
+    flex-direction: column-reverse;
+  }
+  .mainHeader__buttonList {
+    width: 100%;
+    gap: 5%;
+  }
+  .mainHeader__dropdown {
+    width: 30%;
+  }
+  .mainHeader__button {
+    width: 100%;
+  }
+  .mainHeader__dropdown-content {
+    width: 100%;
+  }
+  .mainHeader__search-bar input {
+    width: 100%;
+  }
+  .mainHeader__activetedTags {
+    width: auto;
+  }
+}
+@media screen and (max-width: 525px) {
+  .mainHeader {
+    flex-direction: row;
+    gap: 4%;
+  }
+  .mainHeader__buttonList {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .mainHeader__dropdown {
+    width: 195px;
+    max-width: 195px;
+  }
+  .mainHeader__tag {
+    width: auto;
+  }
+}
+
+.activetedTag {
+  display: flex;
+  justify-content: flex-start;
+  gap: 5%;
+  padding: 0 5% 0 5%;
+  margin-bottom: 55px;
+  flex-wrap: wrap;
+}
+.activetedTag__tag {
+  width: 203px;
+  height: 53px;
+  padding: 0 18px 0 18px;
+  background-color: #FFD15B;
+  border-radius: 10px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  min-width: 135px;
+}
+.activetedTag i:hover {
+  cursor: pointer;
+}
+@media screen and (max-width: 855px) {
+  .activetedTag__tag {
+    width: 30%;
+  }
 }
 
 .section-recipe {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  padding: 0 104px 0 104px;
+  padding: 0 5% 0 5%;
+  min-height: 800px;
+  gap: 45px;
+  margin: auto;
 }
 .section-recipe h3 {
   font-family: "Anton";
@@ -145,13 +352,30 @@ main {
   background-color: white;
   box-shadow: 0px 4px 34px 30px rgba(0, 0, 0, 0.04);
   border-radius: 21px;
-  margin-bottom: 68px;
+  position: relative;
 }
 .section-recipe__card img {
   width: 380px;
   height: 253px;
   object-fit: cover;
   border-radius: 21px 21px 0 0;
+}
+.section-recipe__time {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 65px;
+  height: 26px;
+  background: #FFD15B;
+  border-radius: 14px;
+  top: 21px;
+  right: 20px;
+}
+.section-recipe__time span {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
 }
 .section-recipe__cardContent {
   padding: 0 25px 0 25px;
@@ -175,7 +399,7 @@ main {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   justify-content: space-between;
-  height: 232px;
+  gap: 30px;
 }
 .section-recipe__cardIngredient {
   display: flex;
@@ -192,6 +416,29 @@ main {
   font-size: 14px;
   line-height: 19px;
   color: #7A7A7A;
+}
+@media screen and (max-width: 1366px) {
+  .section-recipe {
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 400px) {
+  .section-recipe__card {
+    width: 100%;
+  }
+  .section-recipe__card img {
+    width: 100%;
+  }
+  .section-recipe__cardIngredients {
+    width: fit-content;
+  }
+}
+
+#errorMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
 }
 
 /*# sourceMappingURL=style.css.map */

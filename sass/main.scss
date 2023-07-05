@@ -1,5 +1,6 @@
 
 $font-family-title : 'Anton'; 
+$searchBar-color : #7A7A7A;
 
 
 body {
@@ -23,7 +24,7 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    background-repeat: no-repeat;
     &__logo {
         position: absolute;
         top: 51px;
@@ -58,12 +59,12 @@ main {
         width: 720px;
     }
     &__search-bar {
-        width: 954px;
+        width: 80%;
         height: 72px;
         position: relative;
-
+        max-width: 954px;
         input {
-            width: inherit;
+            width: 100%;
             height: inherit;
             border-radius: 11px;
             border: none;
@@ -72,6 +73,17 @@ main {
             font-weight: 400;
             font-size: 16px;
             line-height: 22px;
+            color: $searchBar-color;
+        }
+
+        span {
+            display: none;
+            position: absolute;
+            top: 27px;
+            right: 80px;
+            font-size: 20px;
+            color: $searchBar-color;
+            cursor: pointer;
         }
         
         button {
@@ -83,21 +95,37 @@ main {
             width: 51px;
             height: 52px;
             border: none;
-
+            cursor: pointer;
+            &:hover {
+                background: #FFD15B;
+            }
+            &:hover i {
+                color: black;
+            }
             i {
                 font-size: 30px;
                 color: white;
             }
         }
     }
+    @media screen and (max-width: 1000px) {
+        background-size: cover;
+        background-position-x: center;
+    }
+    @media screen and (max-width: 855px) {
+        background-position-x: 80%;
+        h1 {
+            width: 80%;
+        }
+    }
 }
 
 .mainHeader {
-    padding: 30px 104px 55px 104px;
+    padding: 30px 5% 55px 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    gap: 5%;
     &__buttonList {
         width: 717px;
         display: flex;
@@ -116,28 +144,208 @@ main {
         font-weight: 500;
         font-size: 16px;
         line-height: 22px;
-
         i {
             position: absolute;
             top: 20px;
             right: 25px;
         }
+        i:last-child {
+            display: none;
+        }
+        i:first-child {
+            display: block;
+        }
     }
 
-    span {
+    &__button:hover + &__dropdown-content,
+    &__dropdown-content:hover {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__dropdown {
+        position: relative;
+    }
+
+    &__dropdown-content {
+        display: none;
+        width: 195px;
+        height: 315px;
+        position: absolute;
+        background-color: white;
+        top: 47px;
+        border-radius: 0 0 11px 11px;
+        z-index: 1;
+    }
+
+    &__search-bar {
+        position: relative;
+        margin: 5px 16px;
+        input {
+            box-sizing: border-box;
+            width: 163px;
+            height: 36px;
+            border: 1px solid #C6C6C6;
+            border-radius: 2px;
+            color: $searchBar-color;
+            padding: 12px 10px;
+        }
+        i {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            color: $searchBar-color;
+        }
+    }
+
+    &__activetedTags {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 195px;
+        gap: 1px;
+    }
+
+    &__tag {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 37px;
+        background: #FFD15B;
+        padding-left: 16px;
+        padding-right: 14px;
+        width: auto;
+        span {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+        }
+        &:hover span{
+            font-weight: 700;
+        }
+        i {
+            display: none;
+            cursor: pointer;
+        }
+        &:hover i {
+            display: block;
+        }
+
+    }
+
+    &__recipeCount {
         font-family: $font-family-title;
         font-weight: 400;
         font-size: 21px;
         line-height: 32px;
+        white-space: nowrap;
+    }
+
+    &__listTag {
+        display: flex;
+        flex-direction: column;
+        margin-top: 13px;
+        text-overflow: clip;
+        overflow: scroll;
+        border-radius: 0 0 11px 11px;
+        
+        button {
+            height: auto;
+            border: none;
+            background-color: white;
+            text-align: left;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 35px;
+            padding-left: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #FFD16B;
+        }
+    }
+    @media screen and (max-width: 855px) {
+        gap: 30px;
+        flex-direction: column-reverse;
+        &__buttonList {
+            width: 100%;
+            gap: 5%;
+        }
+        &__dropdown {
+            width: 30%;
+        }
+        &__button {
+            width: 100%;
+        }
+        &__dropdown-content {
+            width: 100%;
+        }
+        &__search-bar input {
+            width: 100%;
+        }
+        &__activetedTags {
+            width: auto;
+        }
+    }
+    @media screen and (max-width: 525px) {
+        flex-direction: row;
+        gap: 4%;
+        &__buttonList {
+            flex-direction: column;
+            gap: 10px;
+        }
+        &__dropdown {
+            width: 195px;
+            max-width: 195px;
+        }
+        &__tag {
+            width: auto;
+        }
+    }
+}
+
+.activetedTag {
+    display: flex;
+    justify-content: flex-start;
+    gap: 5%;
+    padding: 0 5% 0 5%;
+    margin-bottom: 55px;
+    flex-wrap: wrap;
+    &__tag {
+        width: 203px;
+        height: 53px;
+        padding: 0 18px 0 18px;
+        background-color: #FFD15B;
+        border-radius: 10px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 19px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 5px;
+        min-width: 135px;
+    }
+    i:hover {
+        cursor: pointer;
+    }
+    
+    @media screen and (max-width: 855px) {
+        &__tag {
+            width: 30%;
+        }
     }
 }
 
 .section-recipe {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    padding: 0 104px 0 104px;
+    padding: 0 5% 0 5%;
+    min-height: 800px;
+    gap: 45px;
+    margin: auto;
     h3 {
         font-family: $font-family-title;
         font-weight: 400;
@@ -158,12 +366,29 @@ main {
         background-color: white;
         box-shadow: 0px 4px 34px 30px rgba(0, 0, 0, 0.04);
         border-radius: 21px;
-        margin-bottom: 68px;
+        position: relative;
         img {
             width: 380px;
             height: 253px;
             object-fit: cover;
             border-radius: 21px 21px 0 0;
+        }
+    }
+    &__time {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 65px;
+        height: 26px;
+        background: #FFD15B;
+        border-radius: 14px;
+        top: 21px;
+        right: 20px;
+        span {
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 16px;
         }
     }
     &__cardContent {
@@ -188,7 +413,7 @@ main {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         justify-content: space-between;
-        height: 232px;
+        gap: 30px;
     }
     &__cardIngredient {
         display: flex;
@@ -206,4 +431,26 @@ main {
             color: #7A7A7A;
         }
     }
+    @media screen and (max-width: 1366px) {
+        justify-content: center;
+    }
+    @media screen and (max-width: 400px) {
+        &__card {
+            width: 100%;
+            img {
+                width: 100%;
+            }
+        }
+        &__cardIngredients {
+            width: fit-content;
+        }
+    }
 }
+
+#errorMessage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+}
+
